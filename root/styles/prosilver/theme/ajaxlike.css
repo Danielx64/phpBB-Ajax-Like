@@ -1,0 +1,79 @@
+/* 
+	eMosbat ajax Like
+*/
+
+.ajaxlike_container
+{
+	font-size: 9px;
+	color: #404040;
+	-moz-border-radius: 5px;
+ 	border-radius: 5px;
+	background-color: #fafafa;
+	margin: 12px 0 0 0;
+	padding: 2px 4px;
+	display: block;
+	clear: both;
+}
+
+.ajaxlike_link, .ajaxlike_link:link, .ajaxlike_link:visited, .ajaxlike_link:hover
+{
+	color: #003399;
+	font-weight: normal;
+}
+
+.ajaxlike_like_button
+{
+	background: url('{T_THEME_PATH}/images/ajax_like.png') left center no-repeat;
+	padding-left: 14px;
+}
+
+.ajaxlike_unlike_button, .ajaxlike_unlike_button:link, .ajaxlike_unlike_button:visited, .ajaxlike_unlike_button:hover
+{
+	color: #303030;
+	background: url('{T_THEME_PATH}/images/ajax_unlike.png') left center no-repeat;
+	padding-left: 14px;
+}
+
+.ajaxlike_box
+{
+	display: block;
+	clear: both;
+}
+
+ul.ajaxlike_like_list
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul.ajaxlike_like_list li
+{
+	padding: 0;
+	margin: 2px 4px;
+}
+
+
+ul.ajaxlike_like_list li a, ul.ajaxlike_like_list li a:hover, ul.ajaxlike_like_list li a:visited
+{
+	color: white;;
+}
+
+.ajaxlike_listing_item
+{
+	border: 1px #dadada solid;
+	-moz-border-radius: 5px;
+ 	border-radius: 5px;
+ 	display: block;
+ 	margin: 5px;
+ 	padding: 8px;
+ 	background-color: #fafafa;
+ 	
+}
+
+.ajaxlike_listing_item_date
+{
+	padding: 6px 0 3px 0;
+	font-size: 9px;
+	color: gray;
+}
