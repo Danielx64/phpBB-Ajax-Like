@@ -72,10 +72,10 @@ function ajaxlike_fulllistbox(post_id, topic_id, forum_id, like_on_text)
 			width: '500',
 			height: '400',
 			modal: true,
-			//show: "fadein",
-			//hide: "fadeout",
+			show: "fade",
+			hide: "fade",
 			buttons: {
-				Ok: function() {
+				OK: function() {
 					$( this ).dialog( "close" );
 				}
 			},

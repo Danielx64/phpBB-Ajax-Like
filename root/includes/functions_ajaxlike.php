@@ -354,4 +354,14 @@ function get_user_likes($user_id)
 	return $like_count;
 }
 
+function ajaxlike_die($msg)
+{
+	global $phpEx;
+	
+	include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
+	
+	garbage_collection();
+	
+	exit($msg);
+}
 ?>

@@ -42,12 +42,12 @@ if($config['ajaxlike_enable'])
 
 		if (!$forum_id)
 		{
-			die('Invalid request!');
+			ajaxlike_die('Invalid request!');
 		}
 		
 		if($ajaxlike_action	== 'fulllist')
 		{
-			die(get_fulllist($post_id));
+			ajaxlike_die(get_fulllist($post_id));
 		} else {
 
 		if (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS))
@@ -55,16 +55,16 @@ if($config['ajaxlike_enable'])
 		
 			if($ajaxlike_action	== 'like')
 			{
-				die(ajaxlike_like_post($post_id));
+				ajaxlike_die(ajaxlike_like_post($post_id));
 			}
 		
 			if(($ajaxlike_action	== 'unlike') && $config['ajaxlike_allow_unlike'])
 			{
-				die(ajaxlike_unlike_post($post_id));
+				ajaxlike_die(ajaxlike_unlike_post($post_id));
 			}
 		
 		} else {
-			die("Access Denied!");
+			ajaxlike_die("Access Denied!");
 		}
 		
 		}
