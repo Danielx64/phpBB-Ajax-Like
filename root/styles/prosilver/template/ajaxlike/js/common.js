@@ -18,16 +18,17 @@ function load_tips(id)
 //alert(id);
 }
 
-function ajaxlike_like(post_id, topic_id, forum_id)
+function ajaxlike_like(post_id, topic_id, forum_id, user_id, callback_url)
 {
 	
 	var rv = new Date().getTime();
 	
-	$.get("viewtopic.php", {
+	$.get(callback_url, {
 		ajaxlike_rnd : rv,
 		f: forum_id, 
 		t: topic_id, 
 		p: post_id, 
+		like_from : user_id,
 		ajaxlike_action: 'like', 
 		ajaxlike_data: ''
 		},   function(data){
@@ -39,16 +40,17 @@ function ajaxlike_like(post_id, topic_id, forum_id)
 
 }
 
-function ajaxlike_unlike(post_id, topic_id, forum_id)
+function ajaxlike_unlike(post_id, topic_id, forum_id, user_id, callback_url)
 {
 
 	var rv = new Date().getTime();
 	
-	$.get("viewtopic.php", {
+	$.get(callback_url, {
 		ajaxlike_rnd : rv,
 		f: forum_id, 
 		t: topic_id, 
 		p: post_id, 
+		like_from : user_id,
 		ajaxlike_action: 'unlike', 
 		ajaxlike_data: ''
 		},   function(data){
@@ -59,7 +61,7 @@ function ajaxlike_unlike(post_id, topic_id, forum_id)
 	);
 }
 
-function ajaxlike_fulllistbox(post_id, topic_id, forum_id, like_on_text)
+function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on_text)
 {
 
 	$(function() {
@@ -87,7 +89,7 @@ function ajaxlike_fulllistbox(post_id, topic_id, forum_id, like_on_text)
             	
 				var rv = new Date().getTime();
 				
-				$.getJSON("viewtopic.php", {
+				$.getJSON(callback_url, {
 					ajaxlike_rnd : rv,
 					f: forum_id, 
 					t: topic_id, 

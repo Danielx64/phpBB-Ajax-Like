@@ -18,7 +18,8 @@ if (!defined('IN_PHPBB'))
 
 function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 {
-	global $user, $config;
+	global $user, $config, $phpbb_root_path, $phpEx;
+	include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
 	$user->setup('viewtopic');
 	
 	$likes_data = fetch_topic_likes($post_id);
@@ -38,12 +39,12 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 				if($you_liked)
 				{
 						if($config['ajaxlike_allow_unlike']){
-							$html.='<a href="#" onclick="ajaxlike_unlike('.$post_id.','.$topic_id.','.$forum_id.'); return false;" class="ajaxlike_link ajaxlike_unlike_button">'.$user->lang['AL_UNLIKE_TEXT'].'</a> &middot; '.$user->lang['AL_YOU_TEXT'].' ';
+							$html.='<a href="#" onclick="ajaxlike_unlike('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_unlike_button">'.$user->lang['AL_UNLIKE_TEXT'].'</a> &middot; '.$user->lang['AL_YOU_TEXT'].' ';
 						}
 						
 						if($post_likes > 0)
 						{
-							$html.=$user->lang['AL_AND_TEXT'].' <a href="#" onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;" class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
+							$html.=$user->lang['AL_AND_TEXT'].' <a href="#" onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;" class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
 							
 							if($like_list!==false)
 							{
@@ -66,7 +67,7 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 				
 				} else {
 					
-					$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a> &middot; <a href="#" onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;" class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
+					$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a> &middot; <a href="#" onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;" class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
 					
 					if($like_list!==false){
 						
@@ -86,7 +87,7 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 				//$html.='</div>';
 	} else {
 	
-		$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a>';
+		$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a>';
 	
 	}
 	
