@@ -44,7 +44,7 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 						
 						if($post_likes > 0)
 						{
-							$html.=$user->lang['AL_AND_TEXT'].' <a href="#" onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;" class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
+							$html.=$user->lang['AL_AND_TEXT'].' <a href="'.($total_likes > 1 ? '#' : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)).'" '.($total_likes > 1 ? 'onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;"' : '').' class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
 							
 							if($like_list!==false)
 							{
@@ -67,7 +67,7 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 				
 				} else {
 					
-					$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a> &middot; <a href="#" onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;" class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
+					$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a> &middot; <a href="'.($total_likes > 1 ? '#' : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)).'" '.($total_likes > 1 ? 'onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;"' : '').' class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
 					
 					if($like_list!==false){
 						
