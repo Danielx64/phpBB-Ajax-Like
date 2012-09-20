@@ -26,6 +26,7 @@
 if($config['ajaxlike_enable'])
 {
 	include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
+	$ajaxlike_like_from	= request_var('like_from', 0);
 	$ajaxlike_action	= request_var('ajaxlike_action', '');
 	$ajaxlike_data		= request_var('ajaxlike_data', '');
 	
@@ -50,7 +51,7 @@ if($config['ajaxlike_enable'])
 			ajaxlike_die(get_fulllist($post_id));
 		} else {
 
-		if (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS))
+		if (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) && ($user->data['user_id']==$ajaxlike_like_from))
 		{
 		
 			if($ajaxlike_action	== 'like')
@@ -82,8 +83,10 @@ if($config['ajaxlike_enable'])
 	$likes_data = fetch_topic_likes();
 
 		$template->assign_vars(array(
-		'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
-		'ALLOW_UNLIKE'			=> $config['ajaxlike_allow_unlike']
+				'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
+				'ALLOW_UNLIKE'			=> $config['ajaxlike_allow_unlike'],
+				'LIKE_FROM'				=> $user->data['user_id'],
+				'LIKE_CALLBACK'			=> append_sid("{$phpbb_root_path}viewtopic.$phpEx")
 			)
 		);
 }
@@ -99,6 +102,7 @@ if($config['ajaxlike_enable'])
 		'NO_OWN_POST'			=> ($poster_id != $user->data['user_id']),
 		'LIKES'					=> ($config['ajaxlike_enable'] ? get_user_likes($row['user_id']) : 0),
 		'LIKED'					=> ($config['ajaxlike_enable'] ? get_user_liked($row['user_id']) : 0),
+		'LAST_LIKE_URL'			=> (($config['ajaxlike_enable'] ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false))),
 		// ajaxlike]]></action>
 			</edit>
 		</open>
