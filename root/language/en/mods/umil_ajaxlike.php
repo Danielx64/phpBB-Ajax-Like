@@ -22,15 +22,15 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'INSTALL_AJAXLIKE_MOD'				=> 'Install eMosbat Ajax Like Mod',
-	'INSTALL_AJAXLIKE_MOD_CONFIRM'		=> 'Are you ready to install the eMosbat Ajax Like Mod?',
+	'INSTALL_AJAXLIKE_MOD'				=> 'Install phpBB Ajax Like Mod',
+	'INSTALL_AJAXLIKE_MOD_CONFIRM'		=> 'Are you ready to install the phpBB Ajax Like Mod?',
 
-	'AJAXLIKE_MOD'						=> 'eMosbat Ajax Like Mod',
+	'AJAXLIKE_MOD'						=> 'phpBB Ajax Like Mod',
 
-	'UNINSTALL_AJAXLIKE_MOD'			=> 'Uninstall eMosbat Ajax Like Mod',
-	'UNINSTALL_AJAXLIKE_MOD_CONFIRM'	=> 'Are you ready to uninstall the eMosbat Ajax Like Mod?  All settings and data saved by this mod will be removed!',
-	'UPDATE_AJAXLIKE_MOD'				=> 'Update eMosbat Ajax Like Mod',
-	'UPDATE_AJAXLIKE_MOD_CONFIRM'		=> 'Are you ready to update the eMosbat Ajax Like Mod?',
+	'UNINSTALL_AJAXLIKE_MOD'			=> 'Uninstall phpBB Ajax Like Mod',
+	'UNINSTALL_AJAXLIKE_MOD_CONFIRM'	=> 'Are you ready to uninstall the phpBB Ajax Like Mod?  All settings and data saved by this mod will be removed!',
+	'UPDATE_AJAXLIKE_MOD'				=> 'Update phpBB Ajax Like Mod',
+	'UPDATE_AJAXLIKE_MOD_CONFIRM'		=> 'Are you ready to update the phpBB Ajax Like Mod?',
 ));
 
 ?>
