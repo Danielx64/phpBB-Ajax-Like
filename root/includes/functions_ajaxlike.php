@@ -98,7 +98,7 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 
 function fetch_topic_likes($post_id = 0)
 {
-	global $post_list, $topic_id, $user, $db, $phpEx;
+	global $post_list, $topic_id, $user, $db, $phpEx, $phpbb_root_path;
 
 	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 	
@@ -194,7 +194,7 @@ function build_like_list($likelist)
 function get_fulllist($post_id)
 {
 
-	global $db, $user, $phpEx;
+	global $db, $user, $phpEx, $phpbb_root_path;
 	
 	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 	include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
@@ -569,7 +569,7 @@ function get_liked_list()
 
 function ajaxlike_die($msg)
 {
-	global $phpEx;
+	global $phpEx, $phpbb_root_path;
 	
 	include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
 	
@@ -580,7 +580,7 @@ function ajaxlike_die($msg)
 
 function fetch_user_likes($user_id, $likes_limit)
 {
-	global $user, $auth, $db, $phpEx;
+	global $user, $auth, $db, $phpEx, $phpbb_root_path;
 	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 	include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
 	

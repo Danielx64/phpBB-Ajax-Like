@@ -190,8 +190,8 @@ define('LIKES_TABLE',				$table_prefix . 'likes');
 		}
 	}]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : $config['ajaxlike_enable']) && $config['ajaxlike_notify']);
-	$ajaxlike_notify_interval = $config['ajaxlike_notify_interval'];
+	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : @$config['ajaxlike_enable']) && @$config['ajaxlike_notify']);
+	$ajaxlike_notify_interval = @$config['ajaxlike_notify_interval'];
 	if($ajaxlike_notify_interval<5) $ajaxlike_notify_interval = 5;
 	$ajaxlike_notify_interval = $ajaxlike_notify_interval * 1000;
 	
