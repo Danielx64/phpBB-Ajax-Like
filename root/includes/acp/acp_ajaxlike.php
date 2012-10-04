@@ -108,8 +108,6 @@ class acp_ajaxlike
 		}
 
 		$template->assign_vars(array(
-			//'L_TITLE'			=> $user->lang[$display_vars['title']],
-			//'L_TITLE_EXPLAIN'	=> $user->lang[$display_vars['title'] . '_EXPLAIN'],
 
 			'S_ERROR'			=> (sizeof($error)) ? true : false,
 			'ERROR_MSG'			=> implode('<br />', $error),
