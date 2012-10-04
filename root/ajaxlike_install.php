@@ -35,8 +35,12 @@ $versions = array(
 		// Lets add a config setting named ajaxlike_enable and set it to true
 		'config_add' => array(
 			array('ajaxlike_enable', true),
+			array('ajaxlike_guest_can_view', true),
 			array('ajaxlike_allow_unlike', true),
 			array('ajaxlike_list_in_profile', true),
+			array('ajaxlike_profile_num', 0),
+			array('ajaxlike_notify', true),
+			array('ajaxlike_notify_interval', 15),
 		),
 
 		'permission_add' => array(
@@ -54,40 +58,29 @@ $versions = array(
 		
 		'custom'	=> 'ajaxlike_create_tables',
 
-		
-		/*
+	),
+
+	'0.0.4' => array(
+
 		'module_add' => array(
-			// Add a main category
-			array('acp', 0, 'ACP_CAT_DOT_MODS'),
+			array('acp', 'ACP_CAT_DOT_MODS', 'phpBB Ajax Like'),
 
-			// First, lets add a new category named ACP_CAT_AJAXLIKE_MOD to ACP_CAT_DOT_MODS
-			array('acp', 'ACP_CAT_DOT_MODS', 'ACP_CAT_AJAXLIKE_MOD'),
-
-			// Now we will add the settings and features modes from the acp_board module to the ACP_CAT_AJAXLIKE_MOD category using the "automatic" method.
-			array('acp', 'ACP_CAT_AJAXLIKE_MOD', array(
-					'module_basename'		=> 'board',
-					'modes'					=> array('settings', 'features'),
-				),
-			),
-
-			// Now we will add the avatar mode from acp_board to the ACP_CAT_AJAXLIKE_MOD category using the "manual" method.
-			array('acp', 'ACP_CAT_AJAXLIKE_MOD', array(
-					'module_basename'	=> 'board',
-					'module_langname'	=> 'ACP_AVATAR_SETTINGS',
-					'module_mode'		=> 'avatar',
-					'module_auth'		=> 'acl_a_board',
-					'after'				=> 'ACP_BOARD_SETTINGS', // Will be placed after ACP_BOARD_SETTINGS in the category it is in (the one we just added above)
+			array('acp', 'phpBB Ajax Like', array(
+					'module_basename'		=> 'ajaxlike',
+					'modes'					=> array('config'),
 				),
 			),
 		),
 		
-		*/
+		'table_column_add' => array(
+			array('phpbb_users', 'show_likes', array('BOOL', 1)),
+		),
+
 	),
 
-	// Version 1.0.0
-	//'1.0.0' => array(
+	'0.0.7' => array(
 		// Nothing changed in this version.
-	//),
+	),
 );
 
 // Include the UMIF Auto file and everything else will be handled automatically.
@@ -99,6 +92,7 @@ function ajaxlike_create_tables($action, $version)
 
 	if ($action == 'install')
 	{
+		if(!$umil->table_exists('phpbb_likes')) {
 		// Run this when uninstalling
 		$umil->table_add('phpbb_likes', array(
 					'COLUMNS'		=> array(
@@ -108,9 +102,12 @@ function ajaxlike_create_tables($action, $version)
 						'poster_id'			=> array('UINT', NULL, ''),
 						'user_id'			=> array('UINT', NULL, ''),
 						'like_date'			=> array('INT:11', NULL, ''),
+					    'like_state'	    => array('UINT', NULL, ''),
+					    'like_read'		    => array('UINT', NULL, ''),
 					),
 					'PRIMARY_KEY'	=> 'like_id'
 				));
+		}
 	}
 
 }

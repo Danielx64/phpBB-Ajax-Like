@@ -9,7 +9,7 @@
 	-moz-border-radius: 5px;
  	border-radius: 5px;
 	background-color: #fafafa;
-	margin: 12px 0 0 0;
+	margin: 18px 0 0 0;
 	padding: 2px 4px;
 	display: block;
 	clear: both;
@@ -71,9 +71,139 @@ ul.ajaxlike_like_list li a, ul.ajaxlike_like_list li a:hover, ul.ajaxlike_like_l
  	
 }
 
+.ajaxlike_listing_avatar
+{
+ 	float: left;
+ 	margin: 4px;
+ 	width: 60px;
+}
+
+.ajaxlike_listing_content
+{
+ 	float: left;
+ 	margin: 4px;
+ 	width: 350px;
+}
+
 .ajaxlike_listing_item_date
 {
 	padding: 6px 0 3px 0;
 	font-size: 9px;
 	color: gray;
+}
+
+.ajaxlike_profile_listing_title
+{
+	display: block;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 4px 0 0 0;
+}
+
+.ajaxlike_profile_listing_by
+{
+	display: block;
+	font-style: italic;
+	color: gray;
+	font-size: 11px;
+	padding: 4px 0 0 0;
+}
+
+.ajaxlike_profile_listing_item
+{
+	font-size: 11px;
+	padding: 4px 0;
+}
+
+/* 
+	phpBB ajax Like notifications
+*/
+#ajaxlike_not-dialog
+{
+width:230px;
+left:15px;
+bottom:30px;
+position:fixed;
+display:none;
+z-index:99;
+
+}
+
+#ajaxlike_not-dialog .ajaxlike_not_listing_item
+{
+background-color:#E1E6EE;
+border:1px solid #99A8C7;
+/*border-radius*/
+-webkit-border-radius:3px;
+-moz-border-radius:3px;
+border-radius:3px;
+margin:3px;
+padding:3px;
+}
+
+#ajaxlike_not-dialog .ajaxlike_not_listing_item:hover{
+/* change background color on mouseover */
+background-color:#CAD1DE;
+}
+#ajaxlike_not-dialog .ajaxlike_noti_Bottom{
+border-bottom:none;
+}
+#ajaxlike_not-dialog .ajaxlike_noti_Selected{
+background:#CAD1DE;
+}
+#ajaxlike_not-dialog .ajaxlike_noti_Top{
+padding-top:0;
+}
+#ajaxlike_not-dialog .ajaxlike_noti_Bottom{
+padding-bottom:0;
+}
+#ajaxlike_not-dialog .ajaxlike_noti{
+background:#CAD1DE;
+overflow:hidden;
+padding:8px;
+clear:right;
+}
+#ajaxlike_not_x{
+/* close button */
+float:right;
+height:16px;
+width:16px;
+margin-top:-5px;
+margin-right:-5px;
+background:url('{T_THEME_PATH}/images/ajax_close.png') no-repeat;
+visibility:hidden;
+}
+#ajaxlike_not_x:hover{
+/* close button on mouseover */
+background: url('{T_THEME_PATH}/images/ajax_close_h.png') no-repeat !important;
+}
+.ajaxlike_noti_Selected #ajaxlike_not_x{
+display:block !important;
+visibility:visible !important;
+margin-left:4px;
+}
+
+
+.ajaxlike_not_listing_item_date
+{
+	padding: 6px 0 3px 0;
+	font-size: 9px;
+	color: gray;
+}
+.ajaxlike_not_listing_item_avatar
+{
+    margin-right: 10px;
+    float: left;
+ 	width: 60px;
+ 	height: 60px;
+}
+
+.ajaxlike_post_old
+{
+	background-color: #dadada;
+}
+
+.ajaxlike_post_new
+{
+	background: url('{T_THEME_PATH}/images/ajaxlike_new_status.png') #ffffcc right top no-repeat;
 }
