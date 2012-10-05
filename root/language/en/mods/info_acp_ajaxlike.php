@@ -42,6 +42,6 @@ $lang = array_merge($lang, array(
 	'ACP_CONFIG_NOTIFY'						=> 'Like Notification',
 	'ACP_CONFIG_NOTIFY_EXPLAIN'				=> 'enable like notification?',
 	'ACP_CONFIG_INTERVAL'					=> 'Notify interval',
-	'ACP_CONFIG_ENABLE_EXPLAIN'				=> 'check for new likes every n seconds.',
+	'ACP_CONFIG_INTERVAL_EXPLAIN'			=> 'check for new likes every n seconds.',
 ));
 ?>
