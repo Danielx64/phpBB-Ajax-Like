@@ -150,11 +150,11 @@ setInterval( function ajaxlike_notificationsbox()
 					ajaxlike_data: ''
 				},   function(data){
 					
+			if(data!=null)
+			{
 				var nlikes = (data[0].new_likes);
 				var ninfo = (data[0].like_new);
 				
-			if(nlikes!=null)
-			{
 
 				document.getElementById('ajaxlike_not-dialog').innerHTML = "";
 				
