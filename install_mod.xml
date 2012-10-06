@@ -215,15 +215,14 @@ define('LIKES_TABLE',				$table_prefix . 'likes');
 			</edit>
 			<edit>
 				<find><![CDATA[	$template->assign_vars(array(]]></find>
-				<action type="after-add"><![CDATA[
-		// ajaxlike
-       		'AL_NEW_LIKE'                   	=> $like_count,
-    		'AJAXLIKE_ENABLE'			=> $ajaxlike_enable,
-    		'AJAXLIKE_NOTIFY_ENABLE'		=> $ajaxlike_notify,
+				<action type="after-add"><![CDATA[		// ajaxlike
+   		'AL_NEW_LIKE'                   => $like_count,
+   		'AJAXLIKE_ENABLE'				=> $ajaxlike_enable,
+   		'AJAXLIKE_NOTIFY_ENABLE'		=> $ajaxlike_notify,
 		'AJAXLIKE_NOTIFY_INTERVAL'		=> $ajaxlike_notify_interval,
 		'AJAXLIKE_NOTIFY_CALLBACK'		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx"),
 		// ajaxlike
-				]]></action>
+]]></action>
 			</edit>
 		</open>
 		<open src="includes/ucp/ucp_prefs.php">
