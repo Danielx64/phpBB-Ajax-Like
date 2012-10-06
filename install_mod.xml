@@ -190,14 +190,15 @@ define('LIKES_TABLE',				$table_prefix . 'likes');
 		}
 	}]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : @$config['ajaxlike_enable']) && @$config['ajaxlike_notify']);
+	$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? false : @$config['ajaxlike_enable']);
+	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : $ajaxlike_enable) && @$config['ajaxlike_notify']);
 	$ajaxlike_notify_interval = @$config['ajaxlike_notify_interval'];
 	if($ajaxlike_notify_interval<5) $ajaxlike_notify_interval = 5;
 	$ajaxlike_notify_interval = $ajaxlike_notify_interval * 1000;
 	
 	$like_count=0;
 	
-	if($ajaxlike_notify)
+	if($ajaxlike_enable)
 	{
    		$uid=$user->data['user_id'];
    		// Ajax like notification
@@ -209,16 +210,20 @@ define('LIKES_TABLE',				$table_prefix . 'likes');
    		$db->sql_freeresult($result);
 		// Ajax like notification
 	}
-	// ajaxlike]]></action>
+	// ajaxlike
+]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[	$template->assign_vars(array(]]></find>
-				<action type="after-add"><![CDATA[		// ajaxlike
-       	'AL_NEW_LIKE'                  => ($ajaxlike_notify ? $like_count : 0),
-    	'AJAXLIKE_NOTIFY_ENABLE'		=> $ajaxlike_notify,
+				<action type="after-add"><![CDATA[
+		// ajaxlike
+       		'AL_NEW_LIKE'                   	=> $like_count,
+    		'AJAXLIKE_ENABLE'			=> $ajaxlike_enable,
+    		'AJAXLIKE_NOTIFY_ENABLE'		=> $ajaxlike_notify,
 		'AJAXLIKE_NOTIFY_INTERVAL'		=> $ajaxlike_notify_interval,
 		'AJAXLIKE_NOTIFY_CALLBACK'		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx"),
-		// ajaxlike]]></action>
+		// ajaxlike
+				]]></action>
 			</edit>
 		</open>
 		<open src="includes/ucp/ucp_prefs.php">
@@ -368,14 +373,16 @@ $lang = array_merge($lang, array(]]></find>
 			<edit>
 				<find><![CDATA[	<!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[<!-- ajaxlike -->
-<!-- IF AJAXLIKE_NOTIFY_ENABLE -->
+<!-- IF AJAXLIKE_ENABLE -->
 <div id="ajaxlike_not-dialog">
 </div>
 <div id="ajaxlike-not-dialog" title="{L_AL_LIKE_NEW_TITLE}">
 </div>
+<!-- IF AJAXLIKE_NOTIFY_ENABLE -->
 <script type="text/javascript">
 	ajaxlike_init_notify({AJAXLIKE_NOTIFY_INTERVAL},'{AJAXLIKE_NOTIFY_CALLBACK}');
 </script>
+<!-- ENDIF -->
 <!-- ENDIF -->
 <!-- ajaxlike -->]]></action>
 			</edit>
@@ -403,7 +410,7 @@ $lang = array_merge($lang, array(]]></find>
 				<find><![CDATA[					<a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a>
 					<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[                    <!-- Ajax like notification -->
-                    <!-- IF AJAXLIKE_NOTIFY_ENABLE -->
+                    <!-- IF AJAXLIKE_ENABLE -->
                     &bull;
 					(<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><span id="ajaxlike_not_new"><b>{AL_NEW_LIKE}</b>{L_AL_LIKE_NEW}</span></a>)
 					<!-- ENDIF -->
@@ -526,14 +533,16 @@ $(function() {
 				<find><![CDATA[	<!-- IF DEBUG_OUTPUT --><br /><bdo dir="ltr">[ {DEBUG_OUTPUT} ]</bdo><!-- ENDIF --></span>
 </div>]]></find>
 				<action type="after-add"><![CDATA[<!-- ajaxlike -->
-<!-- IF AJAXLIKE_NOTIFY_ENABLE -->
+<!-- IF AJAXLIKE_ENABLE -->
 <div id="ajaxlike_not-dialog">
 </div>
 <div id="ajaxlike-not-dialog" title="{L_AL_LIKE_NEW_TITLE}">
 </div>
+<!-- IF AJAXLIKE_NOTIFY_ENABLE -->
 <script type="text/javascript">
 	ajaxlike_init_notify({AJAXLIKE_NOTIFY_INTERVAL},'{AJAXLIKE_NOTIFY_CALLBACK}');
 </script>
+<!-- ENDIF -->
 <!-- ENDIF -->
 <!-- ajaxlike -->]]></action>
 			</edit>
@@ -559,7 +568,7 @@ $(function() {
 				<find><![CDATA[					<!-- ENDIF -->
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[                    <!-- Ajax like notification -->
-                    <!-- IF AJAXLIKE_NOTIFY_ENABLE -->
+                    <!-- IF AJAXLIKE_ENABLE -->
                      &nbsp;<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><img src="{T_THEME_PATH}/images/icon_mini_message.gif" width="12" height="13" alt="*" /> <span id="ajaxlike_not_new"><b>{AL_NEW_LIKE}</b>{L_AL_LIKE_NEW}</span></a>
 					<!-- ENDIF -->
                     <!-- Ajax like notification -->]]></action>
