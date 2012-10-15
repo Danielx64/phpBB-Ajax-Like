@@ -388,8 +388,8 @@ $lang = array_merge($lang, array(]]></find>
 		</open>
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
-				<find><![CDATA[<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/forum_fn.js"></script>]]></find>
-				<action type="after-add"><![CDATA[<!-- ajaxlike -->
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/common.js"></script>
 <script type="text/javascript">
 	JQuery_loader("{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery.js");
@@ -548,8 +548,8 @@ $(function() {
 		</open>
 		<open src="styles/subsilver2/template/overall_header.html">
 			<edit>
-				<find><![CDATA[</script>]]></find>
-				<action type="after-add"><![CDATA[<!-- ajaxlike -->
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/common.js"></script>
 <script type="text/javascript">
 	JQuery_loader("{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery.js");
