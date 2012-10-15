@@ -388,6 +388,13 @@ $lang = array_merge($lang, array(]]></find>
 		</open>
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
+				<find><![CDATA[<link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />]]></find>
+				<action type="after-add"><![CDATA[<!-- ajaxlike -->
+<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
+<!-- ajaxlike -->]]></action>
+			</edit>
+			<edit>
 				<find><![CDATA[</head>]]></find>
 				<action type="before-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/common.js"></script>
@@ -396,13 +403,6 @@ $lang = array_merge($lang, array(]]></find>
 </script>
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery-ui.js"></script>
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery.tipsy.js"></script>
-<!-- ajaxlike -->]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[<link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />]]></find>
-				<action type="after-add"><![CDATA[<!-- ajaxlike -->
-<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
-<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
 <!-- ajaxlike -->]]></action>
 			</edit>
 			<edit>
