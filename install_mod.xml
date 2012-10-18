@@ -598,7 +598,9 @@ $(function() {
 					<!-- ajaxlike -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[<!-- ENDIF -->
+				<find><![CDATA[</td>
+
+	<!-- ENDIF -->
 		</tr>
 
 	<tr>
