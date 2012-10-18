@@ -598,8 +598,14 @@ $(function() {
 					<!-- ajaxlike -->]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[<div class="gensmall" style="float: {S_CONTENT_FLOW_END};"><!-- IF not S_IS_BOT --><!-- IF postrow.U_EDIT --><a href="{postrow.U_EDIT}">{EDIT_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_QUOTE --><a href="{postrow.U_QUOTE}">{QUOTE_IMG}</a> <!-- ENDIF --> <!-- ENDIF -->&nbsp;</div>]]></find>
-				<action type="after-add"><![CDATA[<!-- ajaxlike -->
+				<find><![CDATA[<!-- ENDIF -->
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>]]></find>
+				<action type="before-add"><![CDATA[<!-- ajaxlike -->
 			<!-- IF postrow.TOTAL_LIKES > 0 -->
 			<hr />
 			<div class="ajaxlike_container" id="ajaxlike_content{postrow.POST_ID}">

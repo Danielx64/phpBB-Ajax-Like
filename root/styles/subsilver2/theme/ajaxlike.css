@@ -23,14 +23,14 @@
 
 .ajaxlike_like_button
 {
-	background: url('{T_THEME_PATH}/images/ajax_like.png') left center no-repeat;
+	background: url('./images/ajax_like.png') left center no-repeat;
 	padding-left: 14px;
 }
 
 .ajaxlike_unlike_button, .ajaxlike_unlike_button:link, .ajaxlike_unlike_button:visited, .ajaxlike_unlike_button:hover
 {
 	color: #303030;
-	background: url('{T_THEME_PATH}/images/ajax_unlike.png') left center no-repeat;
+	background: url('./images/ajax_unlike.png') left center no-repeat;
 	padding-left: 14px;
 }
 
@@ -171,12 +171,12 @@ height:16px;
 width:16px;
 margin-top:-5px;
 margin-right:-5px;
-background:url('{T_THEME_PATH}/images/ajax_close.png') no-repeat;
+background:url('./images/ajax_close.png') no-repeat;
 visibility:hidden;
 }
 #ajaxlike_not_x:hover{
 /* close button on mouseover */
-background: url('{T_THEME_PATH}/images/ajax_close_h.png') no-repeat !important;
+background: url('./images/ajax_close_h.png') no-repeat !important;
 }
 .ajaxlike_noti_Selected #ajaxlike_not_x{
 display:block !important;
@@ -206,5 +206,5 @@ margin-left:4px;
 
 .ajaxlike_post_new
 {
-	background: url('{T_THEME_PATH}/images/ajaxlike_new_status.png') #ffffcc right top no-repeat;
+	background: url('./images/ajaxlike_new_status.png') #ffffcc right top no-repeat;
 }
