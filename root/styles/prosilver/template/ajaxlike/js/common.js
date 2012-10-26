@@ -133,14 +133,9 @@ function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on
 /*
 	ajaxlike notifications
 */
-
-function ajaxlike_init_notify(interval, callback_url)
+function ajaxlike_notificationsbox(callback_url)
 {
 
-setInterval( function ajaxlike_notificationsbox()
-{
-
-	$(function() {
 				
 		       var rv = new Date().getTime();
 				
@@ -183,9 +178,15 @@ setInterval( function ajaxlike_notificationsbox()
 			
 			});
 
-		 });
 
-},interval);
+}
+
+function ajaxlike_init_notify(interval, callback_url)
+{
+
+ajaxlike_notificationsbox(callback_url); // page load notify
+
+setInterval(ajaxlike_notificationsbox(callback_url) ,interval);
 
 }
 
