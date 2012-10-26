@@ -406,7 +406,7 @@ function get_notifications()
 				FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . USERS_TABLE . ' as u_table ON u_table.user_id = l_table.user_id  INNER JOIN ' . TOPICS_TABLE . ' as t_table ON l_table.topic_id = t_table.topic_id 
 				WHERE l_table.poster_id = '.$uid.' AND l_table.like_state = 1 ORDER BY l_table.like_date DESC';
 			
-			$result = $db->sql_query($sql);
+			$result = $db->sql_query_limit($sql,15); // limit it so do not get lot of notifications
 			while($row = $db->sql_fetchrow($result))
 			{
 			          $textp = append_sid($phpbb_root_path . "viewtopic.$phpEx", "f=". $row['forum_id'] ."&amp;t=". $row['topic_id']."&amp;p=".$row['post_id']."#p". $row['post_id'] ."");
@@ -423,14 +423,13 @@ function get_notifications()
 						'avatar' 		=> (get_avatar_ajaxlike($row['user_avatar'], $row['user_avatar_type'], $row['user_avatar_width'], $row['user_avatar_height'])),
 						'username_full'	=> (get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']))
 				 	 );
-		             $sql = 'UPDATE ' . LIKES_TABLE . '
-		             SET like_state = 2 WHERE poster_id = '.$uid.' AND post_id ='. $row['post_id'] .'';
-	                 $db->sql_query($sql);
 			} 
 
-
-
 			$db->sql_freeresult($result);
+
+            $sql = 'UPDATE ' . LIKES_TABLE . '
+             SET like_state = 2 WHERE poster_id = '.$uid.' AND like_state = 1 ';
+            $db->sql_query($sql);
 			
 		@header('Content-type: application/json');
 		return @json_encode($notifications);

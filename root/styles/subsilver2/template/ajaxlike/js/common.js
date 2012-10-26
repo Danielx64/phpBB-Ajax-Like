@@ -186,7 +186,7 @@ function ajaxlike_init_notify(interval, callback_url)
 
 ajaxlike_notificationsbox(callback_url); // page load notify
 
-setInterval(ajaxlike_notificationsbox(callback_url) ,interval);
+setInterval(function(){ajaxlike_notificationsbox(callback_url)},interval);
 
 }
 
