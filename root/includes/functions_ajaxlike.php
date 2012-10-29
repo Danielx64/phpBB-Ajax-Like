@@ -542,7 +542,7 @@ function get_liked_list()
 				if(empty($rows) && empty($rows2)) // show something when we have no likes at all.
 				{
 					 $liked_list[]= array(
-						'item_class'  	=> 'new',
+						'item_class'  	=> 'old',
 				 		'uid' 			=> '',
 						'username' 		=> '',
 						'post' 			=> '',
