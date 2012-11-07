@@ -78,7 +78,7 @@ $versions = array(
 
 	),
 
-	'0.1.0' => array(
+	'1.0.0' => array(
 		// Nothing changed in this version.
 	),
 );
