@@ -19,7 +19,10 @@ if (!defined('IN_PHPBB'))
 function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 {
 	global $user, $config, $phpbb_root_path, $phpEx;
-	include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
+	if(!function_exists('append_sid'))
+	{
+		include($phpbb_root_path . 'includes/functions.' . $phpEx);
+	}
 	$user->setup('viewtopic');
 	
 	$likes_data = fetch_topic_likes($post_id);
@@ -100,8 +103,10 @@ function fetch_topic_likes($post_id = 0)
 {
 	global $post_list, $topic_id, $user, $db, $phpEx, $phpbb_root_path;
 
-	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-	
+	if(!function_exists('user_get_id_name'))
+	{
+		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+	}
 	
 	$sql = 'SELECT COUNT(like_id) as num_likes, post_id
 		FROM ' . LIKES_TABLE . '
@@ -196,9 +201,13 @@ function get_fulllist($post_id)
 
 	global $db, $user, $phpEx, $phpbb_root_path;
 	
-	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	//include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+	//include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+	
+	if(!function_exists('get_username_string'))
+	{
+		include($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	}
 	
 	$user->setup('viewtopic');
 	
@@ -308,7 +317,7 @@ function ajaxlike_unlike_post($post_id)
 }
 
 if (!function_exists('json_encode')) {
-    function json_encode($data) {
+    function json_encode($data) { // from php.net/manual/en/function.json-encode.php
          switch ($type = gettype($data)) {
              case 'NULL':
                  return 'null';
@@ -396,9 +405,14 @@ function get_notifications()
 		return "Invalid request!";
 	}
 	
-	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	//include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+	//include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+	
+	if(!function_exists('get_username_string'))
+	{
+		include($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	}
+	
     $uid=$user->data['user_id'];
 	$user->setup('viewtopic');
 	
@@ -446,9 +460,14 @@ function get_liked_list()
 		return "Invalid request!";
 	}
 
-	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	//include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+	//include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+
+	if(!function_exists('censor_text'))
+	{
+		include($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	}
+	
     $uid=$user->data['user_id'];
 	$user->setup('viewtopic');
 	
@@ -570,7 +589,10 @@ function ajaxlike_die($msg)
 {
 	global $phpEx, $phpbb_root_path;
 	
-	include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
+	if(!function_exists('garbage_collection'))
+	{
+		include($phpbb_root_path . 'includes/functions.' . $phpEx);
+	}
 	
 	garbage_collection();
 	
@@ -580,8 +602,16 @@ function ajaxlike_die($msg)
 function fetch_user_likes($user_id, $likes_limit)
 {
 	global $user, $auth, $db, $phpEx, $phpbb_root_path;
-	include_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-	include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+
+	if(!function_exists('user_get_id_name'))
+	{
+		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+	}
+	
+	if(!function_exists('censor_text'))
+	{
+		include($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	}
 	
 	$sql = 'SELECT l_table.like_id, l_table.poster_id, l_table.post_id, l_table.topic_id, l_table.like_date, p_table.post_text, p_table.bbcode_uid, t_table.topic_title, t_table.forum_id 
 		FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . POSTS_TABLE . ' as p_table ON l_table.post_id = p_table.post_id INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
