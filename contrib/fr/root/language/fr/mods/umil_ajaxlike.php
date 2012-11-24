@@ -23,15 +23,15 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'ACP_MOD_TITLE'							=> 'phpBB Ajax Like',
-	'INSTALL_AJAXLIKE_MOD'				=> 'Install phpBB Ajax Like Mod',
-	'INSTALL_AJAXLIKE_MOD_CONFIRM'		=> 'Are you ready to install the phpBB Ajax Like Mod?',
+	'INSTALL_AJAXLIKE_MOD'				=> 'Installer le MOD phpBB Ajax Like',
+	'INSTALL_AJAXLIKE_MOD_CONFIRM'		=> 'Êtes-vous prêt(e) à installer le MOD phpBB Ajax Like ?',
 
-	'AJAXLIKE_MOD'						=> 'phpBB Ajax Like Mod',
+	'AJAXLIKE_MOD'						=> 'MOD phpBB Ajax Like',
 
-	'UNINSTALL_AJAXLIKE_MOD'			=> 'Uninstall phpBB Ajax Like Mod',
-	'UNINSTALL_AJAXLIKE_MOD_CONFIRM'	=> 'Are you ready to uninstall the phpBB Ajax Like Mod?  All settings and data saved by this mod will be removed!',
-	'UPDATE_AJAXLIKE_MOD'				=> 'Update phpBB Ajax Like Mod',
-	'UPDATE_AJAXLIKE_MOD_CONFIRM'		=> 'Are you ready to update the phpBB Ajax Like Mod?',
+	'UNINSTALL_AJAXLIKE_MOD'			=> 'Désinstaller le MOD phpBB Ajax Like',
+	'UNINSTALL_AJAXLIKE_MOD_CONFIRM'	=> 'Êtes-vous prêt(e) à désinstaller le MOD phpBB Ajax Like ? Tous les paramètres et données seront supprimés !',
+	'UPDATE_AJAXLIKE_MOD'				=> 'Mettre à jour le MOD phpBB Ajax Like',
+	'UPDATE_AJAXLIKE_MOD_CONFIRM'		=> 'Êtes-vous prêt(e) à mettre à jour le MOD phpBB Ajax Like ?',
 ));
 
 ?>

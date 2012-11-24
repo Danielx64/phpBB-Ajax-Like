@@ -5,7 +5,7 @@ class acp_ajaxlike_info
     {
         return array(
             'filename'    => 'acp_ajaxlike',
-            'title'        => 'phpBB Ajax Like',
+            'title'        => 'ACP_MOD_TITLE',
             'version'    => '1.0.0',
             'modes'        => array(
                 'config'		=> array(

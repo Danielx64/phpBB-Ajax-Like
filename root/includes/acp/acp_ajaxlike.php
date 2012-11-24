@@ -37,7 +37,7 @@ class acp_ajaxlike
       switch($mode)
       {
          case 'config':
-            $this->page_title = 'phpBB Ajax Like';
+            $this->page_title = $user->lang['ACP_MOD_TITLE'];
             $this->tpl_name = 'acp_ajaxlike';
 
 				$display_vars = array(

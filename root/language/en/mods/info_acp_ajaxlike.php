@@ -25,12 +25,11 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
+	'ACP_MOD_TITLE'							=> 'phpBB Ajax Like',
 	'ACP_AJAXLIKE_CONFIG_TITLE'				=> 'Ajax Like Settings',
 	'TITLE'									=> 'Ajax Like Settings',
 	'LEGEND1'								=> 'General',
-	'TITLE_EXPLAIN'							=> '',
 	'ACP_CONFIG_ENABLE'						=> 'Status',
-	'ACP_CONFIG_ENABLE_EXPLAIN'				=> '',
 	'ACP_CONFIG_GUEST'						=> 'Guest View',
 	'ACP_CONFIG_GUEST_EXPLAIN'				=> 'Guest can view likes?',
 	'ACP_CONFIG_LIST_PROFILE'				=> 'Show in Profiles',

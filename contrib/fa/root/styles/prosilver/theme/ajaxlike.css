@@ -13,7 +13,6 @@
 	padding: 2px 4px;
 	display: block;
 	clear: both;
-	overflow: hidden;
 }
 
 .ajaxlike_link, .ajaxlike_link:link, .ajaxlike_link:visited, .ajaxlike_link:hover
@@ -25,14 +24,14 @@
 .ajaxlike_like_button
 {
 	background: url('{T_THEME_PATH}/images/ajax_like.png') left center no-repeat;
-	padding-left: 14px;
+	padding-left: 22px;
 }
 
 .ajaxlike_unlike_button, .ajaxlike_unlike_button:link, .ajaxlike_unlike_button:visited, .ajaxlike_unlike_button:hover
 {
 	color: #303030;
 	background: url('{T_THEME_PATH}/images/ajax_unlike.png') left center no-repeat;
-	padding-left: 14px;
+	padding-left: 22px;
 }
 
 .ajaxlike_box
@@ -74,14 +73,14 @@ ul.ajaxlike_like_list li a, ul.ajaxlike_like_list li a:hover, ul.ajaxlike_like_l
 
 .ajaxlike_listing_avatar
 {
- 	float: left;
+ 	float: right;
  	margin: 4px;
  	width: 60px;
 }
 
 .ajaxlike_listing_content
 {
- 	float: left;
+ 	float: right;
  	margin: 4px;
  	width: 350px;
 }
@@ -194,7 +193,7 @@ margin-left:4px;
 .ajaxlike_not_listing_item_avatar
 {
     margin-right: 10px;
-    float: left;
+    float: right;
  	width: 60px;
  	height: 60px;
 }
@@ -206,5 +205,5 @@ margin-left:4px;
 
 .ajaxlike_post_new
 {
-	background: url('{T_THEME_PATH}/images/ajaxlike_new_status.png') #ffffcc right top no-repeat;
+	background: url('{T_THEME_PATH}/images/ajaxlike_new_status.png') #ffffcc left top no-repeat;
 }
