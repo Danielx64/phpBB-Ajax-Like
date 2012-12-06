@@ -110,7 +110,7 @@ function fetch_topic_likes($post_id = 0)
 	
 	$sql = 'SELECT COUNT(like_id) as num_likes, post_id
 		FROM ' . LIKES_TABLE . '
-		WHERE topic_id = '. (int) $topic_id .' AND post_id IN ('. (int) ($post_id == 0 ? implode(",", $post_list) : $post_id) .') GROUP BY post_id';
+		WHERE topic_id = '. (int) $topic_id .' AND post_id IN ('. ($post_id == 0 ? implode(",", $post_list) : (int) $post_id) .') GROUP BY post_id';
 	$result = $db->sql_query($sql);
 	
 	$likes_array = array();
