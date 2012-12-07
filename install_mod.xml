@@ -14,7 +14,7 @@
 				<username><![CDATA[emosbat, ..::¦DJ¦::..]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.2</mod-version>
+		<mod-version>1.0.3</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -159,7 +159,7 @@ if($ajaxlike_enable)
 	$likes_data = fetch_topic_likes();
 
 		$template->assign_vars(array(
-				'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
+				'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
 				'ALLOW_UNLIKE'			=> $config['ajaxlike_allow_unlike'],
 				'LIKE_FROM'				=> $user->data['user_id'],
 				'LIKE_CALLBACK'			=> append_sid("{$phpbb_root_path}viewtopic.$phpEx")
