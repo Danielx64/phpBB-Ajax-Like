@@ -590,7 +590,7 @@ function get_liked_list()
 
 function ajaxlike_die($msg,$err_id=0)
 {
-	global $phpEx, $phpbb_root_path;
+	global $phpEx, $phpbb_root_path, $user;
 	
 	if(!function_exists('garbage_collection'))
 	{
