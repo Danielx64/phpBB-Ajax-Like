@@ -111,7 +111,7 @@
 				<!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[                    <!-- Ajax like notification -->
                     <!-- IF AJAXLIKE_ENABLE -->
-                     &nbsp;<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><img src="{T_THEME_PATH}/images/icon_mini_message.gif" width="12" height="13" alt="*" /> <span id="ajaxlike_not_new"><b>{AL_NEW_LIKE}</b>{L_AL_LIKE_NEW}</span></a>
+                     &nbsp;<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><img src="{T_THEME_PATH}/images/icon_mini_message.gif" width="12" height="13" alt="*" /> <span id="ajaxlike_not_new"><strong>{AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a>
 					<!-- ENDIF -->
                     <!-- Ajax like notification -->]]></action>
 			</edit>

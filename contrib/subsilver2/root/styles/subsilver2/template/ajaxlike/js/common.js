@@ -156,7 +156,7 @@ function ajaxlike_notificationsbox(callback_url)
 				for(i=0;i<data.length;i++){
 					document.getElementById('ajaxlike_not-dialog').innerHTML += '<div class="ajaxlike_not_listing_item" like_id="'+data[i].like_id+'" id="box'+data[i].like_id+'"><div class="ajaxlike_noti ajaxlike_noti_Top ajaxlike_noti_Bottom ajaxlike_noti_Selected" style="opacity: 1; "><span id="ajaxlike_not_x" class="close'+data[i].like_id+'">&nbsp;</span><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+(data[i].avatar!=''?"</div>":"")+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span></div></div>';
 			 	 
-					$("#ajaxlike_not_new").html(""+"<b>" + nlikes + "</b>" + ninfo +  "");
+					$("#ajaxlike_not_new").html(""+"<strong>" + nlikes + "</strong>" + ninfo +  "");
 	  				$("#ajaxlike_not-dialog").fadeIn("slow");	
 	   				$('div').live('hover',function() {  
          			hoveredId = $(this).attr('like_id');
@@ -241,7 +241,7 @@ function ajaxlike_liked_listbox(callback_url)
 					
 					document.getElementById('ajaxlike-not-dialog').innerHTML += '<div class="ajaxlike_listing_item ajaxlike_post_'+data[i].item_class+'"><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+'</div><div class="ajaxlike_listing_content">'+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'" class="ajaxlike_link">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span><br /><span class="ajaxlike_listing_item_date"><i>'+data[i].post_text+'</i></span></div><div style="clear: both;">&nbsp;</div></div>';
 					
-				$("#ajaxlike_not_new").html(""+"<b>0</b>" + ninfo +  "");
+				$("#ajaxlike_not_new").html(""+"<strong>0</strong>" + ninfo +  "");
 				
 				}
 			});
