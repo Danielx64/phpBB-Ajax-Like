@@ -22,9 +22,11 @@
 		</installation>
 		<link-group>
 			<link type="contrib" href="contrib/subsilver2/subsilver2.xml" lang="en">Subsilver2</link>
+			<link type="contrib" href="contrib/Top-User-Addon/install_mod.xml" lang="en">Top User Addon</link>
 			<link type="contrib" href="contrib/fa/install_fa.xml" lang="en">Persian translation by emosbat</link>
 			<link type="contrib" href="contrib/es/install_es.xml" lang="es">Spanish translation by ..¦DJ¦..</link>
 			<link type="contrib" href="contrib/fr/install_fr.xml" lang="fr">French translation by Mathieu M.</link>
+			<link type="contrib" href="contrib/Absolution Theme/install_mod.xml" lang="en">Absolution Theme</link>
 		</link-group>
 	</header>
 	<action-group>
