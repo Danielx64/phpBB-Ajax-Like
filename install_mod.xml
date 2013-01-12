@@ -257,7 +257,7 @@ define('LIKES_TABLE',				$table_prefix . 'likes');
 			<edit>
 				<find><![CDATA[$lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	'AL_LIKE_NEW'					    => '&nbsp;new like received',
+	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',
 	'AL_LIKE_NEW_TITLE'				    => 'New likes received list',	
     'AL_LIKE_INFO'					    => 'Likes your&nbsp;',
 	'AL_LIKE_SELF'				        => 'View your post',
@@ -302,7 +302,7 @@ $lang = array_merge($lang, array(]]></find>
 	'AL_PEOPLE_TEXT'					=> 'people',
 	'AL_PEOPLE_LIKE_THIS_TEXT'			=> 'People like this post',
 	'AL_LIKE_POST_TEXT'					=> 'like this post.',
-	'AL_ONE_LIKE_POST_TEXT'				=> 'like this post.',
+	'AL_ONE_LIKE_POST_TEXT'				=> 'likes this post.',
 	'AL_LIKE_POST_WITH_YOU_TEXT'		=> 'like this post.',
 	'AL_YOU_LIKE_TEXT'					=> 'like this post.',
 	'AL_LIKE_TEXT'						=> 'Like',
