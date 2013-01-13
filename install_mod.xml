@@ -421,7 +421,7 @@ $lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[                    <!-- Ajax like notification -->
                     <!-- IF AJAXLIKE_ENABLE -->
                     &bull;
-					(<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><span id="ajaxlike_not_new"><strong>{AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a>)
+					<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><span id="ajaxlike_not_new"><strong>{AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a>
 					<!-- ENDIF -->
                     <!-- Ajax like notification -->]]></action>
 			</edit>
