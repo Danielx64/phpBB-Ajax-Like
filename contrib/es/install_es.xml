@@ -31,7 +31,7 @@
 		}]]></find>
 				<action type="after-add"><![CDATA[		// ajaxlike
 		require_once($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
-		$ajaxlike_enable = ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && $user->data['show_likes']);
+		$ajaxlike_enable = ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && ajaxlike_user_showlikes_status($user_id));
 		
 		if($ajaxlike_enable)
 		{

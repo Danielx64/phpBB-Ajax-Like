@@ -3,7 +3,7 @@
 *
 * @package phpBB3
 * @version $Id$
-* @copyright (c) 2005 phpBB Group
+* @copyright (c) 2013 emosbat.com
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
@@ -714,6 +714,25 @@ function get_avatar_ajaxlike($avatar, $avatar_type, $avatar_width, $avatar_heigh
 
     $avatar_img .= $avatar;
     return '<img src="' . $avatar_img . '" width='.$new_width.'"' . $avatar_width . '" height='.$new_height.'"' . $avatar_height . '" alt="' . ((!empty($user->lang[$alt])) ? $user->lang[$alt] : $alt) . '" />';
+}
+
+function ajaxlike_user_showlikes_status($uid)
+{
+
+	global $db;
+
+	$sql = 'SELECT show_likes 
+		FROM  ' . USERS_TABLE . ' 
+		WHERE user_id = '. (int) $uid;
+	
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
+	
+	if(empty($row))
+		return 0;
+	else
+		return $row['show_likes'];
 }
 
 ?>

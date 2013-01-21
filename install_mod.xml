@@ -11,10 +11,11 @@
 		<description lang="en"><![CDATA[Ajax Like for phpBB3.]]></description>
 		<author-group>
 			<author>
-				<username><![CDATA[emosbat, ..::¦DJ¦::..]]></username>
+				<username><![CDATA[emosbat]]></username>
+				<username><![CDATA[..::¦DJ¦::..]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.3</mod-version>
+		<mod-version>1.0.4</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -39,7 +40,7 @@
 		}]]></find>
 				<action type="after-add"><![CDATA[		// ajaxlike
 		require_once($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
-		$ajaxlike_enable = ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && $user->data['show_likes']);
+		$ajaxlike_enable = ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && ajaxlike_user_showlikes_status($user_id));
 		
 		if($ajaxlike_enable)
 		{
