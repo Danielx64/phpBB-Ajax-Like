@@ -4,13 +4,6 @@
 */
 
 
-function JQuery_loader(url)
-{
-    if (typeof(jQuery) == 'undefined') {
-            document.write("<scr" + "ipt type=\"text/javascript\" src=\""+url+"\"></scr" + "ipt>");
-    }
-
-}
 
 function load_tips(id)
 {
