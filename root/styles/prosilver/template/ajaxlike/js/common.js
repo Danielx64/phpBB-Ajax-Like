@@ -151,7 +151,7 @@ function ajaxlike_notificationsbox(callback_url)
 			 	 
 					$("#ajaxlike_not_new").html(""+"<strong>" + nlikes + "</strong>" + ninfo +  "");
 	  				$("#ajaxlike_not-dialog").fadeIn("slow");	
-	   				$('div').live('hover',function() {  
+	   				$('div').on('hover',function() {  
          			hoveredId = $(this).attr('like_id');
          			var like_id =(hoveredId);
 		 			$(".close" + like_id).click(function () {

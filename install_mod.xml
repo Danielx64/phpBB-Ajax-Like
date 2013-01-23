@@ -47,7 +47,7 @@
 			include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
 		}
 		
-		$ajaxlike_enable = ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && ajaxlike_user_showlikes_status($user_id));
+		$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && ajaxlike_user_showlikes_status($user_id)) : 0);
 		
 		if($ajaxlike_enable)
 		{
@@ -95,7 +95,7 @@ if(!function_exists('get_fulllist'))
 	include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
 }
 
-$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable']);
+$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable']) : 0);
 
 if($ajaxlike_enable)
 {
@@ -219,9 +219,9 @@ if(!defined('LIKES_TABLE'))
 		}
 	}]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? false : @$config['ajaxlike_enable']);
-	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : $ajaxlike_enable) && @$config['ajaxlike_notify']);
-	$ajaxlike_notify_interval = @$config['ajaxlike_notify_interval'];
+	$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ($user->data['user_id'] == ANONYMOUS ? false : $config['ajaxlike_enable']) : 0);
+	$ajaxlike_notify = (isset($config['ajaxlike_enable']) ? (($user->data['user_id'] == ANONYMOUS ? false : $ajaxlike_enable) && $config['ajaxlike_notify']) : 0);
+	$ajaxlike_notify_interval = (isset($config['ajaxlike_enable']) ? $config['ajaxlike_notify_interval'] : 0);
 	if($ajaxlike_notify_interval<5) $ajaxlike_notify_interval = 5;
 	$ajaxlike_notify_interval = $ajaxlike_notify_interval * 1000;
 	
