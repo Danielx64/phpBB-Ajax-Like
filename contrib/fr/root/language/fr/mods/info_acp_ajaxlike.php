@@ -1,4 +1,11 @@
 <?php
+/**
+*
+* @package acp
+* @copyright (c) 2013 emosbat.com
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
+*/
 
 if (!defined('IN_PHPBB'))
 {
