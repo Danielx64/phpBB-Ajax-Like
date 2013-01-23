@@ -43,20 +43,51 @@ class acp_ajaxlike
 				$display_vars = array(
 					'title'	=> $this->page_title,
 					'vars'	=> array(
-						'legend1'						=> 'LEGEND1',
-						'ajaxlike_enable'				=> array('lang' => 'ACP_CONFIG_ENABLE',			'validate' => 'bool',	'type' => 'radio:enabled_disabled', 'explain' => true),
-						'ajaxlike_guest_can_view'		=> array('lang' => 'ACP_CONFIG_GUEST',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
-						'ajaxlike_list_in_profile'		=> array('lang' => 'ACP_CONFIG_LIST_PROFILE',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
-
-						'ajaxlike_profile_num'			=> array('lang' => 'ACP_CONFIG_LIST_MAX',			'validate' => 'int:0',	'type' => 'text:6:6', 'method' => false, 'explain' => true),
-
-						'ajaxlike_allow_unlike'			=> array('lang' => 'ACP_CONFIG_ALLOW_UNLIKE',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
-
-						'ajaxlike_notify'				=> array('lang' => 'ACP_CONFIG_NOTIFY',			'validate' => 'bool',	'type' => 'radio:enabled_disabled', 'explain' => true),
-
-						'ajaxlike_notify_interval'			=> array('lang' => 'ACP_CONFIG_INTERVAL',			'validate' => 'int:0',	'type' => 'text:6:6', 'method' => false, 'explain' => true),
-
-						)
+						'legend1'	=> 'LEGEND1',
+						'ajaxlike_enable'		=> array(
+							'lang' => 'ACP_CONFIG_ENABLE',
+							'validate' => 'bool',
+							'type' => 'radio:enabled_disabled',
+							'explain' => true
+						),
+						'ajaxlike_guest_can_view'		=> array(
+							'lang' => 'ACP_CONFIG_GUEST',
+							'validate' => 'bool',
+							'type' => 'radio:yes_no',
+							'explain' => true
+						),
+						'ajaxlike_list_in_profile'		=> array(
+							'lang' => 'ACP_CONFIG_LIST_PROFILE',
+							'validate' => 'bool',
+							'type' => 'radio:yes_no',
+							'explain' => true
+						),
+						'ajaxlike_profile_num'	=> array(
+							'lang' => 'ACP_CONFIG_LIST_MAX',
+							'validate' => 'int:0',
+							'type' => 'text:6:6',
+							'method' => false, 'explain' => true
+						),
+						'ajaxlike_allow_unlike'	=> array(
+							'lang' => 'ACP_CONFIG_ALLOW_UNLIKE',
+							'validate' => 'bool',
+							'type' => 'radio:yes_no',
+							'explain' => true
+						),
+						'ajaxlike_notify'	=> array(
+							'lang' => 'ACP_CONFIG_NOTIFY',
+							'validate' => 'bool',
+							'type' => 'radio:enabled_disabled',
+							'explain' => true
+						),
+						'ajaxlike_notify_interval'	=> array(
+							'lang' => 'ACP_CONFIG_INTERVAL',
+							'validate' => 'int:0',
+							'type' => 'text:6:6',
+							'method' => false,
+							'explain' => true
+						),
+					)
 				);
 			
             break;
@@ -109,10 +140,10 @@ class acp_ajaxlike
 
 		$template->assign_vars(array(
 
-			'S_ERROR'			=> (sizeof($error)) ? true : false,
-			'ERROR_MSG'			=> implode('<br />', $error),
+			'S_ERROR'	=> (sizeof($error)) ? true : false,
+			'ERROR_MSG'	=> implode('<br />', $error),
 
-			'U_ACTION'			=> $this->u_action)
+			'U_ACTION'	=> $this->u_action)
 		);
 
 		// Output relevant page

@@ -17,7 +17,7 @@
 				<username><![CDATA[..::¦DJ¦::..]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.4</mod-version>
+		<mod-version>1.0.5</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -41,7 +41,11 @@
 				<find><![CDATA[			$member['posts_in_queue'] = 0;
 		}]]></find>
 				<action type="after-add"><![CDATA[		// ajaxlike
-		require_once($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
+		if(!function_exists('fetch_user_likes'))
+		{
+			include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
+		}
+		
 		$ajaxlike_enable = ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && ajaxlike_user_showlikes_status($user_id));
 		
 		if($ajaxlike_enable)
@@ -84,8 +88,13 @@
 			<edit>
 				<find><![CDATA[$voted_id = (sizeof($voted_id) > 1) ? array_unique($voted_id) : $voted_id;]]></find>
 				<action type="after-add"><![CDATA[// ajaxlike
-require_once($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
-$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable']);
+
+if(!function_exists('get_fulllist'))
+{
+	include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
+}
+
+$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? ((isset($config['ajaxlike_enable']) ? $config['ajaxlike_enable'] : 0) && (isset($config['ajaxlike_guest_can_view']) ? $config['ajaxlike_guest_can_view'] : 0))) : isset($config['ajaxlike_enable'] ? $config['ajaxlike_enable'] : 0));
 
 if($ajaxlike_enable)
 {
@@ -93,12 +102,12 @@ if($ajaxlike_enable)
 	$ajaxlike_action	= request_var('ajaxlike_action', '');
 	$ajaxlike_data		= request_var('ajaxlike_data', '');
 	
-	if($ajaxlike_action	!= '')
+	if($ajaxlike_action != '')
 	{
 	
-		if($ajaxlike_action!='notifications' && $ajaxlike_action!='liked_list')
+		if($ajaxlike_action != 'notifications' && $ajaxlike_action != 'liked_list')
 		{
-			// do not trust input!
+			// get real forum_id from table and not ajax/request input
 			$sql = 'SELECT forum_id
 				FROM ' . TOPICS_TABLE . "
 				WHERE topic_id = $topic_id";
@@ -108,7 +117,7 @@ if($ajaxlike_enable)
 			
 			if (!$forum_id)
 			{
-				ajaxlike_die('',1);
+				ajaxlike_die('', AL_ERROR_INVALID_REQUEST);
 			}
 			
 		}
@@ -146,7 +155,7 @@ if($ajaxlike_enable)
 				}
 			
 			} else {
-				ajaxlike_die('',2);
+				ajaxlike_die('', AL_ERROR_ACCESS_DENIED);
 			}
 			
 		}
@@ -159,15 +168,16 @@ if($ajaxlike_enable)
 				<find><![CDATA[	'S_NUM_POSTS' => sizeof($post_list))
 );]]></find>
 				<action type="after-add"><![CDATA[// ajaxlike
+
 if($ajaxlike_enable)
 {
 	$likes_data = fetch_topic_likes();
 
 		$template->assign_vars(array(
-				'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
-				'ALLOW_UNLIKE'			=> $config['ajaxlike_allow_unlike'],
-				'LIKE_FROM'				=> $user->data['user_id'],
-				'LIKE_CALLBACK'			=> append_sid("{$phpbb_root_path}viewtopic.$phpEx")
+				'LIKE_ACCESS'	=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
+				'ALLOW_UNLIKE'	=> ($config['ajaxlike_allow_unlike']?true:false),
+				'LIKE_FROM'		=> $user->data['user_id'],
+				'LIKE_CALLBACK'	=> append_sid("{$phpbb_root_path}viewtopic.$phpEx")
 			)
 		);
 }
@@ -189,10 +199,17 @@ if($ajaxlike_enable)
 		</open>
 		<open src="includes/constants.php">
 			<edit>
-				<find><![CDATA[// Table names]]></find>
+				<find><![CDATA[// Additional tables]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-define('LIKES_TABLE',				$table_prefix . 'likes');
-	// ajaxlike]]></action>
+if(!defined('LIKES_TABLE'))
+{
+	define('LIKES_TABLE',				$table_prefix . 'likes');
+	define('AL_ERROR_INVALID_REQUEST',	-1);
+	define('AL_ERROR_ACCESS_DENIED',	-2);
+	define('AL_LIKE_STATE_UNREAD',	1);
+	define('AL_LIKE_STATE_READ',	2);
+}
+// ajaxlike]]></action>
 			</edit>
 		</open>
 		<open src="includes/functions.php">
@@ -201,9 +218,9 @@ define('LIKES_TABLE',				$table_prefix . 'likes');
 		}
 	}]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? false : @$config['ajaxlike_enable']);
-	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : $ajaxlike_enable) && @$config['ajaxlike_notify']);
-	$ajaxlike_notify_interval = @$config['ajaxlike_notify_interval'];
+	$ajaxlike_enable = ($user->data['user_id'] == ANONYMOUS ? false : (isset($config['ajaxlike_enable'])?$config['ajaxlike_enable']:0));
+	$ajaxlike_notify = (($user->data['user_id'] == ANONYMOUS ? false : $ajaxlike_enable) && (isset($config['ajaxlike_notify'])?$config['ajaxlike_notify']:0));
+	$ajaxlike_notify_interval = (isset($config['ajaxlike_notify_interval'])?$config['ajaxlike_notify_interval']:5);
 	if($ajaxlike_notify_interval<5) $ajaxlike_notify_interval = 5;
 	$ajaxlike_notify_interval = $ajaxlike_notify_interval * 1000;
 	
@@ -325,21 +342,21 @@ $lang = array_merge($lang, array(]]></find>
 			<edit>
 				<find><![CDATA['acl_u_viewprofile'	=> array('lang' => 'Can view profiles, memberlist and online list', 'cat' => 'profile'),]]></find>
 				<action type="before-add"><![CDATA[	// ajaxlike
-	'acl_u_ajaxlike_mod'=> array('lang' => 'Can like posts', 'cat' => 'misc'),
+	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
 	// ajaxlike
 	]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	'acl_f_ajaxlike_mod'=> array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
+	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
 	// ajaxlike]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[// Admin Permissions
 $lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	'acl_a_ajaxlike_mod'=> array('lang' => 'Can manage likes', 'cat' => 'misc'),
+	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
 	// ajaxlike]]></action>
 			</edit>
 		</open>
@@ -392,7 +409,9 @@ $lang = array_merge($lang, array(]]></find>
 </div>
 <!-- IF AJAXLIKE_NOTIFY_ENABLE -->
 <script type="text/javascript">
+// <![CDATA[
 	ajaxlike_init_notify({AJAXLIKE_NOTIFY_INTERVAL},'{AJAXLIKE_NOTIFY_CALLBACK}');
+// ]]]]><![CDATA[>
 </script>
 <!-- ENDIF -->
 <!-- ENDIF -->
@@ -478,9 +497,11 @@ $lang = array_merge($lang, array(]]></find>
 <!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript">
+// <![CDATA[
 $(function() {
 	load_tips('.ajaxlike_tooltip');
 });
+// ]]]]><![CDATA[>
 </script>
 <div id="ajaxlike-dialog" title="{L_AL_PEOPLE_LIKE_THIS_TEXT}">
 </div>

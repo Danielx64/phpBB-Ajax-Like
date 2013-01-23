@@ -16,6 +16,7 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
+// this is an ajax call!
 function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 {
 	global $user, $config, $phpbb_root_path, $phpEx;
@@ -110,7 +111,8 @@ function fetch_topic_likes($post_id = 0)
 	
 	$sql = 'SELECT COUNT(like_id) as num_likes, post_id
 		FROM ' . LIKES_TABLE . '
-		WHERE topic_id = '. (int) $topic_id .' AND post_id IN ('. ($post_id == 0 ? implode(",", $post_list) : (int) $post_id) .') GROUP BY post_id';
+		WHERE topic_id = '. (int) $topic_id .' AND '. $db->sql_in_set('post_id', ($post_id == 0 ? $post_list : array((int) $post_id))) . ' 
+		GROUP BY post_id';
 	$result = $db->sql_query($sql);
 	
 	$likes_array = array();
@@ -124,6 +126,7 @@ function fetch_topic_likes($post_id = 0)
 		if($row['num_likes']>0)
 		{
 			
+			// we should get user info for each record
 			$sql = 'SELECT user_id
 				FROM ' . LIKES_TABLE . '
 				WHERE post_id = '.  (int) $row['post_id'];
@@ -179,6 +182,7 @@ function fetch_topic_likes($post_id = 0)
 
 }
 
+// this is an ajax call
 function build_like_list($likelist)
 {
 	$htmllist = "";
@@ -212,8 +216,10 @@ function get_fulllist($post_id)
 	$user->setup('viewtopic');
 	
 			$sql = 'SELECT l_table.user_id, l_table.like_date, u_table.username, u_table.user_avatar, u_table.user_avatar_type, u_table.user_avatar_width, u_table.user_avatar_height, u_table.user_colour 
-				FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . USERS_TABLE . ' as u_table ON u_table.user_id = l_table.user_id 
-				WHERE l_table.post_id = '. (int) $post_id .' ORDER BY l_table.like_date DESC';
+				FROM ' . LIKES_TABLE . ' as l_table 
+				INNER JOIN ' . USERS_TABLE . ' as u_table ON u_table.user_id = l_table.user_id 
+				WHERE l_table.post_id = '. (int) $post_id .' 
+				ORDER BY l_table.like_date DESC';
 			
 			$result = $db->sql_query($sql);
 			
@@ -235,7 +241,7 @@ function get_fulllist($post_id)
 			{
 				$fulllist[]= array(
 				 		'uid' 			=> 0,
-						'username' 		=> 'not found!',
+						'username' 		=> $user->lang['AL_ERROR_INVALID_REQUEST'],
 						'date' 			=> '',
 						'avatar' 		=> '',
 						'username_full'	=> ''
@@ -277,8 +283,8 @@ function ajaxlike_like_post($post_id)
 					'topic_id'		=> (int) $row['topic_id'],
 					'poster_id'		=> (int) $row['poster_id'],
 					'like_date'		=> (int) time(),
-					'like_state'	=> 1,
-					'like_read'		=> 1
+					'like_state'	=> AL_LIKE_STATE_UNREAD,
+					'like_read'		=> AL_LIKE_STATE_UNREAD
 				)
 			);
 			$db->sql_query($sql);
@@ -389,7 +395,7 @@ function get_unread_likes($uid)
 	
 	$sql = 'SELECT COUNT(like_id) as like_count 
 		FROM ' . LIKES_TABLE . '
-		WHERE poster_id = '. (int) $uid .' AND like_read = 1';
+		WHERE poster_id = '. (int) $uid .' AND like_read = ' . AL_LIKE_STATE_UNREAD;
 	$result = $db->sql_query($sql);
 	$like_count = (int) $db->sql_fetchfield('like_count');
 	$db->sql_freeresult($result);
@@ -419,8 +425,11 @@ function get_notifications()
 	}
 	
 			$sql = 'SELECT l_table.user_id, t_table.forum_id, l_table.topic_id, l_table.post_id, l_table.like_id, l_table.like_date, u_table.username, u_table.user_avatar, u_table.user_avatar_type, u_table.user_avatar_width, u_table.user_avatar_height, u_table.user_colour 
-				FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . USERS_TABLE . ' as u_table ON u_table.user_id = l_table.user_id  INNER JOIN ' . TOPICS_TABLE . ' as t_table ON l_table.topic_id = t_table.topic_id 
-				WHERE l_table.poster_id = '. (int) $uid .' AND l_table.like_state = 1 ORDER BY l_table.like_date DESC';
+				FROM ' . LIKES_TABLE . ' as l_table 
+				INNER JOIN ' . USERS_TABLE . ' as u_table ON u_table.user_id = l_table.user_id 
+				INNER JOIN ' . TOPICS_TABLE . ' as t_table ON l_table.topic_id = t_table.topic_id 
+				WHERE l_table.poster_id = '. (int) $uid .' AND l_table.like_state = ' . AL_LIKE_STATE_UNREAD . ' 
+				ORDER BY l_table.like_date DESC';
 			
 			$result = $db->sql_query_limit($sql,15); // limit it so do not get lot of notifications
 			while($row = $db->sql_fetchrow($result))
@@ -444,7 +453,7 @@ function get_notifications()
 			$db->sql_freeresult($result);
 
             $sql = 'UPDATE ' . LIKES_TABLE . '
-             SET like_state = 2 WHERE poster_id = '. (int) $uid .' AND like_state = 1 ';
+             SET like_state = ' . AL_LIKE_STATE_READ . ' WHERE poster_id = '. (int) $uid .' AND like_state = ' . AL_LIKE_STATE_UNREAD;
             $db->sql_query($sql);
 			
 		@header('Content-type: application/json');
@@ -475,8 +484,11 @@ function get_liked_list()
 	
 	
 			$sql = 'SELECT l_table.user_id, t_table.forum_id, l_table.topic_id, l_table.post_id, l_table.like_date, p_table.post_text, u_table.username, u_table.user_avatar, u_table.user_avatar_type, u_table.user_avatar_width, u_table.user_avatar_height, u_table.user_colour, p_table.bbcode_uid 
-				FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . USERS_TABLE . ' as u_table INNER JOIN ' . POSTS_TABLE . ' as p_table ON u_table.user_id = l_table.user_id  INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
-				WHERE l_table.poster_id = '. (int) $uid .' AND l_table.like_read = 1 AND p_table.post_id = l_table.post_id ORDER BY l_table.like_date DESC';
+				FROM ' . LIKES_TABLE . ' as l_table 
+				INNER JOIN ' . USERS_TABLE . ' as u_table INNER JOIN ' . POSTS_TABLE . ' as p_table ON u_table.user_id = l_table.user_id  
+				INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
+				WHERE l_table.poster_id = '. (int) $uid .' AND l_table.like_read = ' . AL_LIKE_STATE_UNREAD . ' AND p_table.post_id = l_table.post_id 
+				ORDER BY l_table.like_date DESC';
 			
 			$result = $db->sql_query_limit($sql,100);
 			$rows = $db->sql_fetchrowset($result);
@@ -520,8 +532,11 @@ function get_liked_list()
 				$fetch_limit = 30 - count($rows);
 				
 				$sql = 'SELECT l_table.user_id, t_table.forum_id, l_table.topic_id, l_table.post_id, l_table.like_date, p_table.post_text, u_table.username, u_table.user_avatar, u_table.user_avatar_type, u_table.user_avatar_width, u_table.user_avatar_height, u_table.user_colour, p_table.bbcode_uid 
-				FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . USERS_TABLE . ' as u_table INNER JOIN ' . POSTS_TABLE . ' as p_table ON u_table.user_id = l_table.user_id  INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
-				WHERE l_table.poster_id = '. (int) $uid .' AND l_table.like_read = 2 AND p_table.post_id = l_table.post_id ORDER BY l_table.like_date DESC';
+				FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . USERS_TABLE . ' as u_table 
+				INNER JOIN ' . POSTS_TABLE . ' as p_table ON u_table.user_id = l_table.user_id 
+				INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
+				WHERE l_table.poster_id = '. (int) $uid .' AND l_table.like_read = ' . AL_LIKE_STATE_READ . ' AND p_table.post_id = l_table.post_id 
+				ORDER BY l_table.like_date DESC';
 				
 				$result = $db->sql_query_limit($sql, $fetch_limit);
 				$rows2 = $db->sql_fetchrowset($result);
@@ -580,7 +595,7 @@ function get_liked_list()
 				}
 			
 			$sql = 'UPDATE ' . LIKES_TABLE . '
-	            SET like_read = 2 WHERE poster_id = '. (int) $uid .'';
+	            SET like_read = ' . AL_LIKE_STATE_READ . ' WHERE poster_id = '. (int) $uid .'';
             $db->sql_query($sql); 
 			
 			@header('Content-type: application/json');
@@ -597,14 +612,14 @@ function ajaxlike_die($msg,$err_id=0)
 		include($phpbb_root_path . 'includes/functions.' . $phpEx);
 	}
 	
-	if($err_id>0) {
+	if($err_id != 0) {
 		$user->setup('viewtopic');
 	
-		if($err_id==-1)
+		if($err_id == AL_ERROR_INVALID_REQUEST)
 		{//Invalid request!
 			$msg = $user->lang['AL_ERROR_INVALID_REQUEST'];
 		}
-		if($err_id==-2)
+		if($err_id == AL_ERROR_ACCESS_DENIED)
 		{//Access Denied!
 			$msg = $user->lang['AL_ERROR_ACCESS_DENIED'];
 		}
@@ -631,8 +646,11 @@ function fetch_user_likes($user_id, $likes_limit)
 	}
 	
 	$sql = 'SELECT l_table.like_id, l_table.poster_id, l_table.post_id, l_table.topic_id, l_table.like_date, p_table.post_text, p_table.bbcode_uid, t_table.topic_title, t_table.forum_id 
-		FROM ' . LIKES_TABLE . ' as l_table INNER JOIN ' . POSTS_TABLE . ' as p_table ON l_table.post_id = p_table.post_id INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
-		WHERE l_table.user_id = '. (int) $user_id .' ORDER BY l_table.like_date DESC ';
+		FROM ' . LIKES_TABLE . ' as l_table 
+		INNER JOIN ' . POSTS_TABLE . ' as p_table ON l_table.post_id = p_table.post_id 
+		INNER JOIN ' . TOPICS_TABLE . ' as t_table ON p_table.topic_id = t_table.topic_id 
+		WHERE l_table.user_id = '. (int) $user_id .' 
+		ORDER BY l_table.like_date DESC ';
 	$result = $db->sql_query_limit($sql, $likes_limit);
 	
 	$likes_array = array();

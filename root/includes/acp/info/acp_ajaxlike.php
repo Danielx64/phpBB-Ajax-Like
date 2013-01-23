@@ -1,4 +1,25 @@
 <?php
+/**
+*
+* @package acp
+* @version $Id$
+* @copyright (c) 2005 phpBB Group
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
+*/
+
+/**
+* @ignore
+*/
+if (!defined('IN_PHPBB'))
+{
+	exit;
+}
+
+/**
+* @package acp
+*/
+
 class acp_ajaxlike_info
 {
     function module()
@@ -6,7 +27,7 @@ class acp_ajaxlike_info
         return array(
             'filename'    => 'acp_ajaxlike',
             'title'        => 'ACP_MOD_TITLE',
-            'version'    => '1.0.0',
+            'version'    => '1.0.5',
             'modes'        => array(
                 'config'		=> array(
             								'title' => 'ACP_AJAXLIKE_CONFIG_TITLE',
