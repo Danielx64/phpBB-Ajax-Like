@@ -20,6 +20,9 @@
 			<time>600</time>
 			<target-version>3.0.11</target-version>
 		</installation>
+		<link-group>
+			<link type="dependency" href="../../install_mod.xml" lang="en">phpBB Ajax Like</link>
+		</link-group>
 	</header>
 	<action-group>
 		<copy>
