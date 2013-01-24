@@ -36,51 +36,51 @@ class acp_ajaxlike
       switch($mode)
       {
          case 'config':
-            $this->page_title = $user->lang['ACP_MOD_TITLE'];
+            $this->page_title = $user->lang['ACP_AJAXLIKE_MOD_TITLE'];
             $this->tpl_name = 'acp_ajaxlike';
 
 				$display_vars = array(
 					'title'	=> $this->page_title,
 					'vars'	=> array(
-						'legend1'	=> 'LEGEND1',
+						'legend1'	=> 'ACP_AJAXLIKE_LEGEND1',
 						'ajaxlike_enable'		=> array(
-							'lang' => 'ACP_CONFIG_ENABLE',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_ENABLE',
 							'validate' => 'bool',
 							'type' => 'radio:enabled_disabled',
 							'explain' => true
 						),
 						'ajaxlike_guest_can_view'		=> array(
-							'lang' => 'ACP_CONFIG_GUEST',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_GUEST',
 							'validate' => 'bool',
 							'type' => 'radio:yes_no',
 							'explain' => true
 						),
 						'ajaxlike_list_in_profile'		=> array(
-							'lang' => 'ACP_CONFIG_LIST_PROFILE',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_LIST_PROFILE',
 							'validate' => 'bool',
 							'type' => 'radio:yes_no',
 							'explain' => true
 						),
 						'ajaxlike_profile_num'	=> array(
-							'lang' => 'ACP_CONFIG_LIST_MAX',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_LIST_MAX',
 							'validate' => 'int:0',
 							'type' => 'text:6:6',
 							'method' => false, 'explain' => true
 						),
 						'ajaxlike_allow_unlike'	=> array(
-							'lang' => 'ACP_CONFIG_ALLOW_UNLIKE',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_ALLOW_UNLIKE',
 							'validate' => 'bool',
 							'type' => 'radio:yes_no',
 							'explain' => true
 						),
 						'ajaxlike_notify'	=> array(
-							'lang' => 'ACP_CONFIG_NOTIFY',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_NOTIFY',
 							'validate' => 'bool',
 							'type' => 'radio:enabled_disabled',
 							'explain' => true
 						),
 						'ajaxlike_notify_interval'	=> array(
-							'lang' => 'ACP_CONFIG_INTERVAL',
+							'lang' => 'ACP_AJAXLIKE_CONFIG_INTERVAL',
 							'validate' => 'int:0',
 							'type' => 'text:6:6',
 							'method' => false,

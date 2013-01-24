@@ -26,7 +26,7 @@ class acp_ajaxlike_info
     {
         return array(
             'filename'    => 'acp_ajaxlike',
-            'title'        => 'ACP_MOD_TITLE',
+            'title'        => 'ACP_AJAXLIKE_MOD_TITLE',
             'version'    => '1.0.6',
             'modes'        => array(
                 'config'		=> array(
