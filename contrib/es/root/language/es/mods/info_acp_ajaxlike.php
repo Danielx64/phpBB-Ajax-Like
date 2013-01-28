@@ -49,5 +49,7 @@ $lang = array_merge($lang, array(
 	'ACP_AJAXLIKE_CONFIG_NOTIFY_EXPLAIN'			=> 'Habilitar notificationes al recibir un nuevo "me gusta"?',
 	'ACP_AJAXLIKE_CONFIG_INTERVAL'					=> 'Intervalo de las notificaciones',
 	'ACP_AJAXLIKE_CONFIG_INTERVAL_EXPLAIN'			=> '',
+	'ACP_AJAXLIKE_CONFIG_ALTER_MODE'				=> 'Alternative Mode',
+	'ACP_AJAXLIKE_CONFIG_ALTER_MODE_EXPLAIN'		=> 'If enabled, only display number of people who liked below posts (useful for some languages)',
 ));
 ?>

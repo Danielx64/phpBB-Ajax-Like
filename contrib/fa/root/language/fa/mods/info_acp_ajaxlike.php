@@ -49,5 +49,7 @@ $lang = array_merge($lang, array(
 	'ACP_AJAXLIKE_CONFIG_NOTIFY_EXPLAIN'			=> 'فعال بودن یادآور لایک؟',
 	'ACP_AJAXLIKE_CONFIG_INTERVAL'					=> 'وقفه میان یادآوری',
 	'ACP_AJAXLIKE_CONFIG_INTERVAL_EXPLAIN'			=> 'بررسی لایک جدید در هر n ثانیه.',
+	'ACP_AJAXLIKE_CONFIG_ALTER_MODE'				=> 'Alternative Mode',
+	'ACP_AJAXLIKE_CONFIG_ALTER_MODE_EXPLAIN'		=> 'If enabled, only display number of people who liked below posts (useful for some languages)',
 ));
 ?>

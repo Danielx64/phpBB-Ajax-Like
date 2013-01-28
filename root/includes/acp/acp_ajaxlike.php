@@ -49,6 +49,12 @@ class acp_ajaxlike
 							'type' => 'radio:enabled_disabled',
 							'explain' => true
 						),
+						'ajaxlike_alter_mode'		=> array(
+							'lang' => 'ACP_AJAXLIKE_CONFIG_ALTER_MODE',
+							'validate' => 'bool',
+							'type' => 'radio:enabled_disabled',
+							'explain' => true
+						),
 						'ajaxlike_guest_can_view'		=> array(
 							'lang' => 'ACP_AJAXLIKE_CONFIG_GUEST',
 							'validate' => 'bool',

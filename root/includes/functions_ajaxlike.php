@@ -19,7 +19,7 @@ if (!defined('IN_PHPBB'))
 // this is an ajax call!
 function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 {
-	global $user, $config, $phpbb_root_path, $phpEx;
+	global $user, $config, $phpbb_root_path, $phpEx, $template, $auth;
 	if(!function_exists('append_sid'))
 	{
 		include($phpbb_root_path . 'includes/functions.' . $phpEx);
@@ -32,72 +32,32 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 	$post_likes = (isset($likes_data[0][$post_id]) ? $likes_data[0][$post_id] - (in_array($post_id, $likes_data[1]) ? 1 : 0) : 0);
 	$you_liked = (in_array($post_id, $likes_data[1]) ? true : false);
 	$like_list =build_like_list(isset($likes_data[2][$post_id]) ? $likes_data[2][$post_id]  : false);
-	
-	$html = "";
-	
-	if($total_likes > 0)
-	{
-	
-			//$html='<div class="ajaxlike_container" id="ajaxlike_content'.$post_id.'">';
 
-				if($you_liked)
-				{
-						if($config['ajaxlike_allow_unlike']){
-							$html.='<a href="#" onclick="ajaxlike_unlike('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_unlike_button">'.$user->lang['AL_UNLIKE_TEXT'].'</a> &middot; ';
-						}
-						
-							$html.=$user->lang['AL_YOU_TEXT'].' ';
-						
-						if($post_likes > 0)
-						{
-							$html.=$user->lang['AL_AND_TEXT'].' <a href="'.($total_likes > 1 ? '#' : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)).'" '.($total_likes > 1 ? 'onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;"' : '').' class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
-							
-							if($like_list!==false)
-							{
-								$html.=' title="'.$like_list.'"';
-							}
-							
-							$html.='>'.$post_likes.' ';
-							
-							if($post_likes > 1)
-							{
-								$html.=$user->lang['AL_OTHERS_TEXT'];
-							} else {
-								$html.=$user->lang['AL_OTHER_TEXT'];
-							}
-							
-							$html.='</a> ';
-						}
-						
-						$html.=($total_likes == 1 ? $user->lang['AL_YOU_LIKE_TEXT'] : $user->lang['AL_LIKE_POST_WITH_YOU_TEXT']);
-				
-				} else {
-					
-					$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a> &middot; <a href="'.($total_likes > 1 ? '#' : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)).'" '.($total_likes > 1 ? 'onclick="ajaxlike_fulllistbox('.$post_id.','.$topic_id.','.$forum_id.',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\',\''.$user->lang['AL_LIKE_AT_TEXT'].'\'); return false;"' : '').' class="ajaxlike_link ajaxlike_tooltip" id="ajaxlike_tooltip'.$post_id.'" ';
-					
-					if($like_list!==false){
-						
-						$html.='title="'.$like_list.'"';
-						
-					}
-					
-					if($total_likes == 1)
-					{
-						$html.='>'.$like_list.'</a> '.$user->lang['AL_ONE_LIKE_POST_TEXT'];
-					} else {
-						$html.='>'.$total_likes.' '.$user->lang['AL_PEOPLE_TEXT'].'</a> '.$user->lang['AL_LIKE_POST_TEXT'];
-					}
-					
-				}
-				
-				//$html.='</div>';
-	} else {
+
+	$template->assign_vars(array(
+		'ALTER_MODE_LIKE_LIST'	=> isset($config['ajaxlike_alter_mode']) ? $config['ajaxlike_alter_mode'] : 0,
+		'TOTAL_LIKES'			=> $total_likes,
+		'POST_LIKES'			=> $post_likes,
+		'YOU_LIKED'				=> $you_liked,
+		'LIKE_LIST'				=> $like_list,
+		'NO_OWN_POST'			=> true,
+		'POST_ID'				=> $post_id,
+		'TOPIC_ID'				=> $topic_id,
+		'FORUM_ID'				=> $forum_id,
+		'ALLOW_UNLIKE'			=> $config['ajaxlike_allow_unlike'],
+		'LIKE_FROM'				=> $user->data['user_id'],
+		'LIKE_CALLBACK'			=> append_sid("{$phpbb_root_path}viewtopic.$phpEx"),
+		'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
+		'LAST_LIKE_URL'			=> ($total_likes > 1 ? '#' : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)),
+		)
+	);
 	
-		$html.='<a href="#" onclick="ajaxlike_like('.$post_id.','.$topic_id.','.$forum_id.','.$user->data['user_id'].',\''.append_sid("{$phpbb_root_path}viewtopic.$phpEx").'\'); return false;" class="ajaxlike_link ajaxlike_like_button">'.$user->lang['AL_LIKE_TEXT'].'</a>';
+	$template->set_filenames(array(
+    	'like_body' => 'ajaxlike/like_body.html',
+	));
 	
-	}
+	return $template->assign_display('like_body', '', true);
 	
-	return $html;
 }
 
 function fetch_topic_likes($post_id = 0)

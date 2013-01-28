@@ -49,5 +49,7 @@ $lang = array_merge($lang, array(
 	'ACP_AJAXLIKE_CONFIG_NOTIFY_EXPLAIN'			=> 'Activer les notifications pour les "J’aime" ?',
 	'ACP_AJAXLIKE_CONFIG_INTERVAL'					=> 'Intervalle de notification',
 	'ACP_AJAXLIKE_CONFIG_INTERVAL_EXPLAIN'			=> 'Vérifier les nouveaux "J’aime" toutes les X secondes.',
+	'ACP_AJAXLIKE_CONFIG_ALTER_MODE'				=> 'Alternative Mode',
+	'ACP_AJAXLIKE_CONFIG_ALTER_MODE_EXPLAIN'		=> 'If enabled, only display number of people who liked below posts (useful for some languages)',
 ));
 ?>

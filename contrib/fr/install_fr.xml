@@ -14,7 +14,7 @@
 				<username><![CDATA[Mathieu M.]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.6</mod-version>
+		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -87,6 +87,14 @@ $lang = array_merge($lang, array(]]></find>
 	'AL_POSTS_TEXT'						=> 'messages',
 	'AL_POST_TEXT'						=> 'message',
 	'AL_LIKE_AT_TEXT'					=> 'A aimé à',
+	'AL_ALTER_ONE_PEOPLE_TEXT'			=> 'person',					// 1 `person` likes this post.
+	'AL_ALTER_TWO_PEOPLE_TEXT'			=> 'people',					// 2 `people` like this post.
+	'AL_ALTER_THREE_PEOPLE_TEXT'		=> 'people',					// 3 `people` like this post.
+	'AL_ALTER_MORE_PEOPLE_TEXT'			=> 'people',					// 12 `people` like this post.
+	'AL_ALTER_ONE_LIKE_POST_TEXT'		=> 'likes this post.',			// 1 person `likes this post`.
+	'AL_ALTER_TWO_LIKE_POST_TEXT'		=> 'like this post.',			// 2 people `like this post`.
+	'AL_ALTER_THREE_LIKE_POST_TEXT'		=> 'like this post.',			// 3 people `like this post`.
+	'AL_ALTER_MORE_LIKE_POST_TEXT'		=> 'like this post.',			// 10 people `like this post`.
 	'AL_ERROR_INVALID_REQUEST'			=> 'Invalid request!',
 	'AL_ERROR_ACCESS_DENIED'			=> 'Access Denied!',
 	// ajaxlike

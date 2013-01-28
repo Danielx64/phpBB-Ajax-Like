@@ -14,7 +14,7 @@
 				<username><![CDATA[emosbat]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.6</mod-version>
+		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -87,6 +87,14 @@ $lang = array_merge($lang, array(]]></find>
 	'AL_POSTS_TEXT'						=> 'پست',
 	'AL_POST_TEXT'						=> 'پست',
 	'AL_LIKE_AT_TEXT'					=> 'لایک در',
+	'AL_ALTER_ONE_PEOPLE_TEXT'			=> 'نفر',					// 1 `people` like this post.
+	'AL_ALTER_TWO_PEOPLE_TEXT'			=> 'نفر',					// 2 `people` like this post.
+	'AL_ALTER_THREE_PEOPLE_TEXT'		=> 'نفر',					// 3 `people` like this post.
+	'AL_ALTER_MORE_PEOPLE_TEXT'			=> 'نفر',					// 12 `people` like this post.
+	'AL_ALTER_ONE_LIKE_POST_TEXT'		=> 'این پست را لایک کرده است.',			// 1 people `like this post`.
+	'AL_ALTER_TWO_LIKE_POST_TEXT'		=> 'این پست را لایک کرده است.',			// 2 people `like this post`.
+	'AL_ALTER_THREE_LIKE_POST_TEXT'		=> 'این پست را لایک کرده است.',			// 3 people `like this post`.
+	'AL_ALTER_MORE_LIKE_POST_TEXT'		=> 'این پست را لایک کرده است.',			// 10 people `like this post`.
 	'AL_ERROR_INVALID_REQUEST'			=> 'Invalid request!',
 	'AL_ERROR_ACCESS_DENIED'			=> 'Access Denied!',
 	// ajaxlike

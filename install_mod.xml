@@ -18,7 +18,7 @@
 				<username><![CDATA[..::¦DJ¦::..]]></username>
 			</author>
 		</author-group>
-		<mod-version>1.0.6</mod-version>
+		<mod-version>1.1.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
@@ -175,6 +175,7 @@ if($ajaxlike_enable)
 	$likes_data = fetch_topic_likes();
 
 		$template->assign_vars(array(
+				'ALTER_MODE_LIKE_LIST'	=> isset($config['ajaxlike_alter_mode']) ? $config['ajaxlike_alter_mode'] : 0,
 				'LIKE_ACCESS'	=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
 				'ALLOW_UNLIKE'	=> ($config['ajaxlike_allow_unlike']?true:false),
 				'LIKE_FROM'		=> $user->data['user_id'],
@@ -278,9 +279,9 @@ if(!defined('LIKES_TABLE'))
 			<edit>
 				<find><![CDATA[$lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
-	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',
-	'AL_LIKE_NEW_TITLE'				    => 'New likes received list',	
-    'AL_LIKE_INFO'					    => 'Likes your&nbsp;',
+	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
+	'AL_LIKE_NEW_TITLE'				    => 'New likes received list',		// notification dialog title
+    'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
 	'AL_LIKE_SELF'				        => 'View your post',
 	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
 	// ajaxlike]]></action>
@@ -292,11 +293,11 @@ if(!defined('LIKES_TABLE'))
 				<action type="after-add"><![CDATA[	// ajaxlike
 	'AL_TITLE'				=> 'Last Likes',
 	'AL_NO_LIKE'			=> 'No post liked yet.',
-	'AL_BY'					=> 'posted by',
-	'AL_AT'					=> 'Liked at',
+	'AL_BY'					=> 'posted by',			// like by
+	'AL_AT'					=> 'Liked at',			// like date
 	'AL_VIEW'				=> '[View Post]',
-	'AL_LIKE_COUNT_TEXT'	=> 'Likes',
-	'AL_LIKED_COUNT_TEXT'	=> 'Liked in',
+	'AL_LIKE_COUNT_TEXT'	=> 'Likes',				// number of likes
+	'AL_LIKED_COUNT_TEXT'	=> 'Liked in',			// number of recieved likes
 	'AL_POSTS_TEXT'			=> 'posts',
 	'AL_POST_TEXT'			=> 'post',
 	// ajaxlike]]></action>
@@ -316,23 +317,34 @@ $lang = array_merge($lang, array(]]></find>
 				<find><![CDATA[$lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[	
 	// ajaxlike
-	'AL_YOU_TEXT'						=> 'You',
-	'AL_AND_TEXT'						=> 'and',
-	'AL_OTHER_TEXT'						=> 'other',
-	'AL_OTHERS_TEXT'					=> 'others',
-	'AL_PEOPLE_TEXT'					=> 'people',
-	'AL_PEOPLE_LIKE_THIS_TEXT'			=> 'People like this post',
-	'AL_LIKE_POST_TEXT'					=> 'like this post.',
-	'AL_ONE_LIKE_POST_TEXT'				=> 'likes this post.',
-	'AL_LIKE_POST_WITH_YOU_TEXT'		=> 'like this post.',
-	'AL_YOU_LIKE_TEXT'					=> 'like this post.',
+	// 																		examples:
+	'AL_YOU_TEXT'						=> 'You',						// `You` like this post.
+	'AL_AND_TEXT'						=> 'and',						// userX `and` y like this post.
+	'AL_OTHER_TEXT'						=> 'other',						// userX and 1 `other`  like this post.
+	'AL_OTHERS_TEXT'					=> 'others',					// userX and 5 `others` like this post.
+	'AL_PEOPLE_TEXT'					=> 'people',					// 4 `people` like this post.
+	'AL_LIKE_POST_TEXT'					=> 'like this post.',			// 3 people `like this post`.
+	'AL_ONE_LIKE_POST_TEXT'				=> 'likes this post.',			// userX `likes this post`.
+	'AL_LIKE_POST_WITH_YOU_TEXT'		=> 'like this post.',			// You and 2 others `like this post`.
+	'AL_YOU_LIKE_TEXT'					=> 'like this post.',			// You `like this post`.
+	// 																		alternative mode:
+	'AL_ALTER_ONE_PEOPLE_TEXT'			=> 'person',					// 1 `person` likes this post.
+	'AL_ALTER_TWO_PEOPLE_TEXT'			=> 'people',					// 2 `people` like this post.
+	'AL_ALTER_THREE_PEOPLE_TEXT'		=> 'people',					// 3 `people` like this post.
+	'AL_ALTER_MORE_PEOPLE_TEXT'			=> 'people',					// 12 `people` like this post.
+	'AL_ALTER_ONE_LIKE_POST_TEXT'		=> 'likes this post.',			// 1 person `likes this post`.
+	'AL_ALTER_TWO_LIKE_POST_TEXT'		=> 'like this post.',			// 2 people `like this post`.
+	'AL_ALTER_THREE_LIKE_POST_TEXT'		=> 'like this post.',			// 3 people `like this post`.
+	'AL_ALTER_MORE_LIKE_POST_TEXT'		=> 'like this post.',			// 10 people `like this post`.
+	//
 	'AL_LIKE_TEXT'						=> 'Like',
 	'AL_UNLIKE_TEXT'					=> 'Unlike',
-	'AL_LIKE_COUNT_TEXT'				=> 'Likes',
-	'AL_LIKED_COUNT_TEXT'				=> 'Liked in',
+	'AL_PEOPLE_LIKE_THIS_TEXT'			=> 'People like this post',		// dialog box title
+	'AL_LIKE_COUNT_TEXT'				=> 'Likes',						// number of likes
+	'AL_LIKED_COUNT_TEXT'				=> 'Liked in',					// number of received likes
 	'AL_POSTS_TEXT'						=> 'posts',
 	'AL_POST_TEXT'						=> 'post',
-	'AL_LIKE_AT_TEXT'					=> 'Liked at',
+	'AL_LIKE_AT_TEXT'					=> 'Liked at',					// like date
 	'AL_ERROR_INVALID_REQUEST'			=> 'Invalid request!',
 	'AL_ERROR_ACCESS_DENIED'			=> 'Access Denied!',
 	// ajaxlike
@@ -470,11 +482,19 @@ $lang = array_merge($lang, array(]]></find>
 			<!-- IF postrow.TOTAL_LIKES > 0 -->
 			<hr />
 			<div class="ajaxlike_container" id="ajaxlike_content{postrow.POST_ID}">
+			<!-- IF ALTER_MODE_LIKE_LIST == 1 -->
+					<!-- IF postrow.YOU_LIKED -->
+						<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS and ALLOW_UNLIKE --><a href="#" onclick="ajaxlike_unlike({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_unlike_button">{L_AL_UNLIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;" class="ajaxlike_link ajaxlike_tooltip" title="{L_AL_YOU_TEXT}<br />{postrow.LIKE_LIST}">{postrow.TOTAL_LIKES} <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_LIKE_POST_TEXT}<!-- ENDIF -->
+					<!-- ELSE -->
+					<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS --><a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;" class="ajaxlike_link ajaxlike_tooltip" title="{postrow.LIKE_LIST}">{postrow.TOTAL_LIKES} <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_LIKE_POST_TEXT}<!-- ENDIF -->
+					<!-- ENDIF -->
+			<!-- ELSE -->
 				<!-- IF postrow.YOU_LIKED and not S_IS_BOT and S_USER_LOGGED_IN -->
 					<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS and ALLOW_UNLIKE --><a href="#" onclick="ajaxlike_unlike({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_unlike_button">{L_AL_UNLIKE_TEXT}</a> &middot; <!-- ENDIF -->{L_AL_YOU_TEXT} <!-- IF postrow.POST_LIKES > 0 -->{L_AL_AND_TEXT} <a href="{postrow.LAST_LIKE_URL}" <!-- IF postrow.TOTAL_LIKES > 1 -->onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;"<!-- ENDIF --> class="ajaxlike_link ajaxlike_tooltip" <!-- IF postrow.LIKE_LIST -->title="{postrow.LIKE_LIST}"<!-- ENDIF -->>{postrow.POST_LIKES} <!-- IF postrow.POST_LIKES > 1 -->{L_AL_OTHERS_TEXT}<!-- ELSE -->{L_AL_OTHER_TEXT}<!-- ENDIF --></a> <!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_YOU_LIKE_TEXT}<!-- ELSE -->{L_AL_LIKE_POST_WITH_YOU_TEXT}<!-- ENDIF -->
 				<!-- ELSE -->
 					<!-- IF not S_IS_BOT and S_USER_LOGGED_IN and postrow.NO_OWN_POST and LIKE_ACCESS --><a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" <!-- IF postrow.TOTAL_LIKES > 1 -->onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;"<!-- ENDIF --> class="ajaxlike_link ajaxlike_tooltip" <!-- IF postrow.LIKE_LIST -->title="{postrow.LIKE_LIST}"<!-- ENDIF -->><!-- IF postrow.TOTAL_LIKES == 1 -->{postrow.LIKE_LIST}<!-- ELSE -->{postrow.TOTAL_LIKES} {L_AL_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ONE_LIKE_POST_TEXT}<!-- ELSE -->{L_AL_LIKE_POST_TEXT}<!-- ENDIF -->
 				<!-- ENDIF -->
+			<!-- ENDIF -->
 			</div>
 			<!-- ELSE -->
 				<!-- IF not S_IS_BOT and S_USER_LOGGED_IN and postrow.NO_OWN_POST and LIKE_ACCESS -->
@@ -484,7 +504,8 @@ $lang = array_merge($lang, array(]]></find>
 				</div>
 				<!-- ENDIF -->
 			<!-- ENDIF -->
-			<!-- ajaxlike -->]]></action>
+			<!-- ajaxlike -->
+]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->]]></find>

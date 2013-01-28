@@ -36,6 +36,7 @@ $versions = array(
 		'config_add' => array(
 			array('ajaxlike_enable', true),
 			array('ajaxlike_guest_can_view', true),
+			array('ajaxlike_alter_mode', false),
 			array('ajaxlike_allow_unlike', true),
 			array('ajaxlike_list_in_profile', true),
 			array('ajaxlike_profile_num', 0),
@@ -78,7 +79,7 @@ $versions = array(
 
 	),
 
-	'1.0.6' => array(
+	'1.1.0' => array(
 		// Nothing changed in this version.
 	),
 );
