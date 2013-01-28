@@ -420,7 +420,7 @@ $lang = array_merge($lang, array(]]></find>
 </div>
 <div id="ajaxlike-not-dialog" title="{L_AL_LIKE_NEW_TITLE}">
 </div>
-<!-- IF AJAXLIKE_NOTIFY_ENABLE -->
+<!-- IF AJAXLIKE_NOTIFY_ENABLE and META == '' -->
 <script type="text/javascript">
 // ]]>&lt;![CDATA[<![CDATA[
 	ajaxlike_init_notify({AJAXLIKE_NOTIFY_INTERVAL},'{AJAXLIKE_NOTIFY_CALLBACK}');
