@@ -230,14 +230,14 @@ if(!defined('LIKES_TABLE'))
 	
 	if($ajaxlike_enable)
 	{
-   		$uid=$user->data['user_id'];
+   		$ajaxlike_uid = $user->data['user_id'];
    		// Ajax like notification
-   		$sql = 'SELECT COUNT(like_id) as like_count 
+   		$ajaxlike_sql = 'SELECT COUNT(like_id) as like_count 
       		FROM ' . LIKES_TABLE . '
-      		WHERE poster_id = '.$uid.' AND like_read = 1';
-   		$result = $db->sql_query($sql);
+      		WHERE poster_id = ' . (int) $ajaxlike_uid . ' AND like_read = 1';
+   		$ajaxlike_result = $db->sql_query($ajaxlike_sql);
    		$like_count = (int) $db->sql_fetchfield('like_count');
-   		$db->sql_freeresult($result);
+   		$db->sql_freeresult($ajaxlike_result);
 		// Ajax like notification
 	}
 	// ajaxlike
@@ -280,7 +280,7 @@ if(!defined('LIKES_TABLE'))
 				<find><![CDATA[$lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[	// ajaxlike
 	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
-	'AL_LIKE_NEW_TITLE'				    => 'New likes received list',		// notification dialog title
+	'AL_LIKE_NEW_TITLE'				    => 'List of new likes',				// notification dialog title
     'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
 	'AL_LIKE_SELF'				        => 'View your post',
 	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
