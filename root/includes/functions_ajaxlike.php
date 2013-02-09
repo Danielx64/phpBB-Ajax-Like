@@ -587,6 +587,7 @@ function ajaxlike_die($msg,$err_id=0)
 	
 	garbage_collection();
 	
+	(ob_get_level() > 0) ? @ob_flush() : @flush();
 	exit($msg);
 	
 }
