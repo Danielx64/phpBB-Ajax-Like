@@ -129,7 +129,7 @@
 			<edit>
 				<find><![CDATA[		<dd id="custom_date" style="display:none;"><input type="text" name="dateformat" id="dateformat" value="{DATE_FORMAT}" maxlength="30" class="inputbox narrow" style="margin-top: 3px;" /></dd>
 	</dl>]]></find>
-				<action type="after-add"><![CDATA[	<!-- ajaxlike -->
+				<action type="after-add"><![CDATA[	<!-- ajaxlike --><!-- IF S_AJ_LIST_IN_PROFILE -->
 	<dl>
 		<dt><label for="show_likes1">{L_AJ_SHOW_LIKES}:</label></dt>
 		<dd>
@@ -137,7 +137,7 @@
 			<label for="show_likes0"><input type="radio" name="show_likes" id="show_likes0" value="0"<!-- IF not S_SHOW_LIKES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
-	<!-- ajaxlike -->]]></action>
+	<!-- ENDIF --><!-- ajaxlike -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/absolution/template/viewtopic_body.html">

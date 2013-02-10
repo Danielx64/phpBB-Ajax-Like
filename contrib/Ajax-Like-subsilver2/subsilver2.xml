@@ -125,7 +125,7 @@
 				<find><![CDATA[		<div id="custom_date"<!-- IF not S_CUSTOM_DATEFORMAT --> style="display:none;"<!-- ENDIF -->><input type="text" name="dateformat" id="dateformat" value="{DATE_FORMAT}" maxlength="30" class="post" style="margin-top: 3px;" /></div>
 	</td>
 </tr>]]></find>
-				<action type="after-add"><![CDATA[	<!-- ajaxlike -->
+				<action type="after-add"><![CDATA[	<!-- ajaxlike --><!-- IF S_AJ_LIST_IN_PROFILE -->
 <tr>
 	<td class="row1" width="50%"><b class="genmed"><label for="show_likes1">{L_AJ_SHOW_LIKES}:</label></b></td>
 	<td class="row2">
@@ -133,7 +133,7 @@
 			<label for="show_likes0"><input type="radio" name="show_likes" id="show_likes0" value="0"<!-- IF not S_SHOW_LIKES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</td>
 </tr>
-	<!-- ajaxlike -->]]></action>
+	<!-- ENDIF --><!-- ajaxlike -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/subsilver2/template/viewtopic_body.html">

@@ -260,6 +260,7 @@ if(!defined('LIKES_TABLE'))
 				<find><![CDATA[				$data = array(]]></find>
 				<action type="after-add"><![CDATA[					// ajaxlike
 					'show_likes'	=> request_var('show_likes', $user->data['show_likes'], true),
+					'ajaxlike_list_in_profile'	=> (isset($config['ajaxlike_enable']) ? $config['ajaxlike_list_in_profile']: false),
 					// ajaxlike]]></action>
 			</edit>
 			<edit>
@@ -271,7 +272,8 @@ if(!defined('LIKES_TABLE'))
 			<edit>
 				<find><![CDATA[					'S_DST'				=> $data['dst'],]]></find>
 				<action type="after-add"><![CDATA[					// ajaxlike
-					'S_SHOW_LIKES'		=> $data['show_likes'],
+					'S_SHOW_LIKES'			=> $data['show_likes'],
+					'S_AJ_LIST_IN_PROFILE'	=> $data['ajaxlike_list_in_profile'],
 					// ajaxlike]]></action>
 			</edit>
 		</open>
@@ -463,7 +465,7 @@ $lang = array_merge($lang, array(]]></find>
 			<edit>
 				<find><![CDATA[		<dd id="custom_date" style="display:none;"><input type="text" name="dateformat" id="dateformat" value="{DATE_FORMAT}" maxlength="30" class="inputbox narrow" style="margin-top: 3px;" /></dd>
 	</dl>]]></find>
-				<action type="after-add"><![CDATA[	<!-- ajaxlike -->
+				<action type="after-add"><![CDATA[	<!-- ajaxlike --><!-- IF S_AJ_LIST_IN_PROFILE -->
 	<dl>
 		<dt><label for="show_likes1">{L_AJ_SHOW_LIKES}:</label></dt>
 		<dd>
@@ -471,7 +473,7 @@ $lang = array_merge($lang, array(]]></find>
 			<label for="show_likes0"><input type="radio" name="show_likes" id="show_likes0" value="0"<!-- IF not S_SHOW_LIKES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
-	<!-- ajaxlike -->]]></action>
+	<!-- ENDIF --><!-- ajaxlike -->]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/viewtopic_body.html">
