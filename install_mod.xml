@@ -259,7 +259,7 @@ if(!defined('LIKES_TABLE'))
 			<edit>
 				<find><![CDATA[				$data = array(]]></find>
 				<action type="after-add"><![CDATA[					// ajaxlike
-					'show_likes'	=> request_var('show_likes', $user->data['show_likes'], true),
+					'show_likes'				=> request_var('show_likes', $user->data['show_likes'], true),
 					'ajaxlike_list_in_profile'	=> (isset($config['ajaxlike_enable']) ? $config['ajaxlike_list_in_profile']: false),
 					// ajaxlike]]></action>
 			</edit>
