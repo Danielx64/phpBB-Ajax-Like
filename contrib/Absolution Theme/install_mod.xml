@@ -98,9 +98,6 @@
 			<edit>
 				<find><![CDATA[<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/forum_fn.js"></script>]]></find>
 				<action type="after-add"><![CDATA[<!-- ajaxlike -->
-<!-- removed. jQuery Pack required.
-script type="text/javascript">window.jQuery || document.write("<script src='{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery.js'>\x3C/script>")</script>
-<script type="text/javascript">window.jQuery.ui || document.write("<script src='{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery-ui.js'>\x3C/script>")</script -->
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/jquery.tipsy.js"></script>
 <script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/ajaxlike/js/common.js"></script>
 <!-- ajaxlike -->
