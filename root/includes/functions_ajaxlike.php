@@ -152,7 +152,7 @@ function build_like_list($likelist)
 	{
 		foreach($likelist as $key => $val)
 		{
-			$htmllist.= ($count_list > 0 ? '<br />' : '') . htmlentities($val['username']);
+			$htmllist.= ($count_list > 0 ? '<br />' : '') . ($val['username']);
 			$count_list++;
 		}
 	}
