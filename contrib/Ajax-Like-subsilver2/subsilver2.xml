@@ -179,7 +179,7 @@
 </table>]]></find>
 				<action type="after-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript">
-$(function() {
+$jqpack_JQuery(function() {
 	load_tips('.ajaxlike_tooltip');
 });
 </script>

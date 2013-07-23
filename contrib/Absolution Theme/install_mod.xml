@@ -184,7 +184,7 @@
 				<find><![CDATA[<!-- INCLUDE overall_footer.html -->]]></find>
 				<action type="before-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript">
-$(function() {
+$jqpack_JQuery(function() {
 	load_tips('.ajaxlike_tooltip');
 });
 </script>
