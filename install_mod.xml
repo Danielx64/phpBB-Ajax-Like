@@ -520,7 +520,7 @@ $lang = array_merge($lang, array(]]></find>
 				<action type="after-add"><![CDATA[<!-- ajaxlike -->
 <script type="text/javascript">
 // ]]>&lt;![CDATA[<![CDATA[
-$al_JQuery(function() {
+$(function() {
 	load_tips('.ajaxlike_tooltip');
 });
 // ]]>]]&gt;<![CDATA[
