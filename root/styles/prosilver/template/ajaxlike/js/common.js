@@ -3,6 +3,10 @@
 	javascript functions
 */
 
+if(typeof $jqpack_JQuery == "undefined")
+	alert("phpBB Ajax Like\n\nError: `jQuery Pack for phpBB` MOD not found.\n\nPlease install and enable `jQuery Pack for phpBB` MOD and also enable `global variable` option.");
+
+
 // added again for backward compatiblity
 function JQuery_loader(url)
 {
