@@ -94,7 +94,7 @@ function ajaxlike_create_tables($action, $version)
 	if ($action == 'install')
 	{
 		if(!$umil->table_exists('phpbb_likes')) {
-		// Run this when uninstalling
+		// Run this when installing
 		$umil->table_add('phpbb_likes', array(
 					'COLUMNS'		=> array(
 						'like_id'			=> array('INT:11', NULL, 'auto_increment'),
