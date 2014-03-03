@@ -2,7 +2,7 @@
 /**
 *
 * @package acp
-* @copyright (c) 2013 emosbat.com
+* @copyright (c) 2013 github.com/eMosbat
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
